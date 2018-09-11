@@ -1,3 +1,10 @@
+#9/10/18 Simple Chatbot
+#Sources: https://www.geeksforgeeks.org/print-colors-python-terminal/
+
+def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk)) 
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+closing = "Boom. How do you like me now?!?!?!"
 print(" ")
 print(" ")
 print(" ")
@@ -35,4 +42,15 @@ print(" ")
 print("Hmm... "+weather+"?? Same here, buckaroo!!!")
 print(" ")
 print(" ")
-print("Well, "+username+", my Mom is callling so I have to say goodbye for now. Nice Chat! xoxoxoxoxx")
+color = input("What is your favorite color? (Please say Red, Green, or Blue!!) ")
+if color == "Red":
+	prRed(closing)
+elif color =="Blue":
+	prCyan(closing)
+else:
+	prGreen(closing)
+print(" ")
+print("Well, "+username+", my Mom is calling so I have to say goodbye for now. Nice Chat! xoxoxoxoxx")
+print(" ")
+print(" ")
+print(" ")
