@@ -1,0 +1,24 @@
+#9/13/18 Wind Chill Calc. No Sources Used
+import sys
+def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
+t = sys.argv[1]
+v = sys.argv[2]
+#t = input("What is the temperature (degrees F)? ")
+#v = input("What is the windspeed (mph)? ")
+t = float(t)
+v = float(v)
+w = 35.74 + (0.6215*t) + (0.4275*t -35.75)*(v**0.16)
+print(" ")
+feelTemp= int(round(w))
+feelTemp = str(feelTemp)
+feelC = (w-32)*(5/9)
+feelC = int(round(feelC))
+feelK = feelC + 273
+feelC = str(feelC)
+feelK = str(feelK)
+print(" ")
+print(" ")
+print(" ")
+prCyan("The wind chill is "+feelTemp+" degrees Farenheit or "+feelC+" Celsius (or "+feelK+" Kelvin). Make sure to wear a coat :)")
+print(" ")
+print(" ")
