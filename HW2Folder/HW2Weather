@@ -1,4 +1,5 @@
 import sys
+def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
 t = sys.argv[1]
 v = sys.argv[2]
 #t = input("What is the temperature (degrees F)? ")
@@ -17,9 +18,6 @@ feelK = str(feelK)
 print(" ")
 print(" ")
 print(" ")
-print("The wind chill is "+feelTemp+" degrees Farenheit or "+feelC+" Celsius (or "+feelK+" Kelvin). Make sure to wear a coat :)")
+prCyan("The wind chill is "+feelTemp+" degrees Farenheit or "+feelC+" Celsius (or "+feelK+" Kelvin). Make sure to wear a coat :)")
 print(" ")
 print(" ")
-
-
-#convert to celius too for bonus stuff and round it

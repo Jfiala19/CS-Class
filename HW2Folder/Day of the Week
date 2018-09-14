@@ -1,0 +1,32 @@
+import sys
+m = int(sys.argv[1])
+d = int(sys.argv[2])
+y = int(sys.argv[3])
+ynot = y -(14-m)//12
+x = ynot + (ynot//4) -(ynot//100) + (ynot//400)
+mnot = m + 12*((14-m)//12)-2
+dnot = (d+x +(31*mnot)//12)%7
+if dnot == 0:
+	day = "Sunday"
+	message = "Rest Easy."
+if dnot == 1:
+	day = "Monday"
+	message = "Not all hope is lost."
+if dnot == 2:
+	day = "Tuesday"
+	message = "It is almost hump day."
+if dnot == 3:
+	day = "Wednesday"
+	message = "HUMP DAY!!!"
+if dnot == 4:
+	day = "Thursday"
+	message = "Almost there."
+if dnot == 5:
+	day = "Friday"
+	message = "ALMOST THERE!!!"
+if dnot == 6:
+	day = "Saturday"
+	message = "Go nuts!"
+print(" ")
+print("The day of the week is "+day+". "+message)
+print(" ")
