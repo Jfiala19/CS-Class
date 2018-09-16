@@ -1,3 +1,5 @@
+#Grade Calculator, 9/16/18, No sources used
+
 import sys
 number = float(sys.argv[1])
 if number < 0 or number > 5:
@@ -28,4 +30,6 @@ elif number >= 1.5:
 elif number >= 0:
 	grade = "D-/F"
 statement = "A "+sys.argv[1]+" in Ms. Healey's class equates to a "+str(grade)
+print(" ")
 print(statement)
+print(" ")
