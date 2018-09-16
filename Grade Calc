@@ -1,0 +1,31 @@
+import sys
+number = float(sys.argv[1])
+if number < 0 or number > 5:
+	print("I only accept numbers between 0 and 5")
+	quit()
+if number >= 4.85:
+	grade = "A+"
+elif number >= 4.7:
+	grade = "A"
+elif number >= 4.5:
+	grade = "A-"
+elif number >= 4.2:
+	grade = "B+"
+elif number >= 3.85:
+	grade = "B"
+elif number >= 3.5:
+	grade = "B-"
+elif number >= 3.2:
+	grade = "C+"
+elif number >= 2.85:
+	grade = "C"
+elif number >= 2.5:
+	grade = "C-"
+elif number >= 2:
+	grade = "D+"
+elif number >= 1.5:
+	grade = "D"
+elif number >= 0:
+	grade = "D-/F"
+statement = "A "+sys.argv[1]+" in Ms. Healey's class equates to a "+str(grade)
+print(statement)

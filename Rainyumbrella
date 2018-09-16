@@ -1,0 +1,10 @@
+weather = input("What is the weather? ")
+weather = weather.lower()
+if weather == 'rainy':
+	print("Bring an Umbrella")
+elif weather == "sunny":
+	print("Go to the beach")
+elif weather == "hurricane":
+    print("Get inside.")
+else:
+	print("cool")
