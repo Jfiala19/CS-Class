@@ -1,4 +1,10 @@
 import random
+
+bothBJ = "\nYou both got blackjack. Your bet has been returned to you\n"
+playerBJ = "\nCongrats, you got Blackjack! You earned twice your bet. \n"
+dealerBJ = "\nThe Dealer won. You lost your bet. \n"
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk)) 
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
 cards= {
 1:{
 	'name': 'Ace',
@@ -73,14 +79,14 @@ cards= {
 def turn():
 	input("\nPress Enter to Draw \n")
 	Player1 = drawcard()
-	print("You Drew a "+cardname(Player1))
+	prGreen("You Drew a "+cardname(Player1))
 	Dealer1 = drawcard()
-	print("The Dealer Drew a " +cardname(Dealer1))
+	prRed("The Dealer Drew a " +cardname(Dealer1))
 	input("\nPress enter to begin next round. \n")
 	Player2 = drawcard()
-	print("You Drew a "+cardname(Player2))
+	prGreen("You Drew a "+cardname(Player2))
 	Dealer2 = drawcard()
-	print("The Dealer Drew a " +cardname(Dealer2))
+	prRed("The Dealer Drew a " +cardname(Dealer2))
 	if Player1 == 1:
 		Aceval1 = int(input("\nDo you want your Ace (draw 1) value to be 1 or 11?\n>>"))
 		if Aceval1 == 1:
@@ -95,14 +101,14 @@ def turn():
 			Player2 = 14
 	if checkfor21(Player1, Player2) == 1:
 		if dealercheck1(Dealer1, Dealer2) == 1:
-			input("\nYou both got blackjack. Your bet has been returned to you\n")
+			input(bothBJ)
 			#return bet value
 		else:
-			input("\nCongrats, you got Blackjack! You earned twice your bet. \n")
+			input(playerBJ)
 			#double bet value
 		return
 	if dealercheck1(Dealer1, Dealer2) == 1:
-		input("\nThe Dealer won. You lost your bet. \n")
+		input(dealerBJ)
 		return
 
 
@@ -112,7 +118,7 @@ def drawcard():
 def cardvalue(card):
 	return int(cards[card]['value'])
 def dealercheck1(card1, card2):
-	if cardvalue(card1) + cardvalue(card2) == cardvalue(card1) + 1 or cardvalue(card1) + cardvalue(card2) == cardvalue(card2) + 1:
+	if card1 != card2 and (cardvalue(card1) + cardvalue(card2) == cardvalue(card1) + 1 or cardvalue(card1) + cardvalue(card2) == cardvalue(card2) + 1):
 		return 1
 	else:
 		return 2
