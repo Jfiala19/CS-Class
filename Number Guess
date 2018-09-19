@@ -1,0 +1,14 @@
+import random
+x = int(random.randrange (0, 11, 1))
+def guess():
+	guessn = int(input("Guess what number I am thinking of: \n>> "))
+	if guessn == x:
+		print("Correct!!! You win!!")
+		quit()
+	if guessn > x:
+		print("Nope. Too high. Guess agian.")
+		guess()
+	if guessn < x:
+		print("Nope. Too low. Guess agian.")
+		guess()
+guess()
