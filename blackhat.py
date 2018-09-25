@@ -1,14 +1,15 @@
 import random
-dealerbust = "\nThe Dealer busted and you Won!\n"
-playerBJ = "\nCongrats, you got Blackjack! You earned twice your bet. \n"
-dealerBJ = "\nThe Dealer got blackjack. You lost your bet. \n"
-bustuser = "\nYou busted and lost your bet."
-rules = "\nEach round you and the dealer will take turns drawing cards trying to get a hand worth 21. Cards 2-10 are worth their face value, and all face cards are worth ten except aces, which are worth 1 or 11. Dealer's aces will count high for his first two draws, and then drop low along with any newly drawn aces. You will go first, drawing more cards until you bust, hit 21, or stay. After that the dealer will draw until they bust, hit 21, or beat your hand. A win for you pays 2 to 1. You have $100 to start in your bank."
+dealerbust = "\nThe Dealer busted and you Won! Way to gain from other's losses!!! \n"
+playerBJ = "\nCongrats, you got Blackjack! Winner Winner Chicken Dinner!! \n"
+dealerBJ = "\nThe Dealer got blackjack. Tough bid. \n"
+bustuser = "\nYou busted. Tough way to go out. Be more smarter. "
+rules = "\nEach round you and the dealer will take turns drawing cards trying to get a hand worth 21. Cards 2-10 are worth their face value, and all face cards are worth ten except aces, which are worth 1 or 11. Dealer's aces will count high for his first two draws, and then drop low along with any newly drawn aces. You will go first, drawing more cards until you bust, hit 21, or stay. After that the dealer will draw until they bust, hit 21, or beat your hand."
 def prRed(skk): print("\033[91m {}\033[00m" .format(skk)) 
 def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
 def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
 h = "hit"
 z = "stay"
+endMessage = "\nThanks for playing!!!!\n"
 Dealer1 = 0
 Dealer2 = 0
 Dealer3 = 0
@@ -90,7 +91,7 @@ cards= {
 }
 }
 
-def turn(bet):
+def turn():
 	input("\nPress Enter to Draw \n")
 	Player1 = 0
 	Player2 = 0
@@ -150,12 +151,15 @@ def endplayer(card1, card2, card3, card4, card5, card6):
 	cardsum = cardvalue(card1) + cardvalue(card2) + cardvalue(card3) + cardvalue(card4) + cardvalue(card5) + cardvalue(card6)
 	if cardsum == 66:
 		prCyan(playerBJ)
+		print(endMessage)
 		exit()
 	if cardsum > 21:
 		prCyan(bustuser)
+		print(endMessage)
 		exit()
 	if cardsum == 21:
 		prCyan(playerBJ)
+		print(endMessage)
 		exit()
 	if cardsum < 21:
 		print("\nYou sit at "+str(cardsum)+". Let's see what the dealer has.\n")
@@ -191,18 +195,23 @@ def dealerfinisher(card1, playerstatus):
 def comparerer(dealerstatus, playerstatus):
 	if dealerstatus == 66:
 		prCyan(dealerBJ)
+		print(endMessage)
 		exit()
 	if dealerstatus > 21:
 		prCyan(dealerbust)
+		print(endMessage)
 		exit()
 	if dealerstatus > playerstatus:
-		prCyan("\nThe Dealer's "+str(dealerstatus)+" beats your "+str(playerstatus)+" and you lost your bet")
+		prCyan("\nThe Dealer's "+str(dealerstatus)+" beats your "+str(playerstatus)+" and you lost. Let me break out the world's smallest violin!!\n")
+		print(endMessage)
 		exit()
 	if playerstatus > dealerstatus:
-		prCyan("\nThe Dealer's "+str(dealerstatus)+" is no match to your "+str(playerstatus)+" and you won!")
+		prCyan("\nThe Dealer's "+str(dealerstatus)+" is no match to your "+str(playerstatus)+" and you won! You are the smartest human being I know!!\n")
+		print(endMessage)
 		exit()
 	if playerstatus == playerstatus:
-		PrCyan("\nYou tied the dealer and your bet is returned")
+		PrCyan("\nYou tied the dealer! Not bad but not good! But especially not good\n")
+		print(endMessage)
 		exit()
 def dealerprint(card):
 	input("\nPress enter to continue. \n")
@@ -232,10 +241,8 @@ def checkforinstant(card1, card2, card3, card4, card5, card6):
 	if cardsum >= 21:
 		endplayer(card1, card2, card3, card4, card5, card6)
 
-startBank = 100
-#username = input("\n\n\nEnter username: \n>> ")
-#print("\n\nHi "+username+". Welcome to Blackjack 2018 on Jack's Macbook!")
-#print(" ")
+username = input("\n\n\nEnter username: \n>> ")
+print("\n\nHi "+str(username)+". Welcome to Blackjack 2021 brought to you by your computer's Terminal!!\n")
 ruler = input("\nDo you need to know the rules of the game? (Yes/No) \n >>")
 ruler = ruler.lower()
 while str(ruler) != "yes" and str(ruler) != "no":
@@ -243,34 +250,4 @@ while str(ruler) != "yes" and str(ruler) != "no":
 	ruler = ruler.lower()
 if ruler == "yes":
 	print(rules)
-#highscore = 0
-#input("\nThe game is about to begin. You have $"+str(startBank)+" to bet. Press enter to continue")
-while True:
-	while True:
-		try:
-			betValue = int(input("\nHow much would you like to bet? \n\n>> "))
-			while int(betValue) <= 0 or int(betValue) > int(startBank):
-				betValue = input("Enter a number less than or equal to "+str(startBank)+"\n\n>> ")
-			break
-		except ValueError:
-			print("Please enter a number less than or equal to "+str(startBank))
-	betValue = int(betValue)
-	print("\nYou have bet $"+str(betValue)+", and currently have $"+str(startBank - betValue)+" In the bank")
-	startBank = startBank - betValue
-	startBank = startBank + turn(betValue)
-	print("You now have $"+startBank+" in your account")
-	hyu = input("\nDo you want to continue? (Yes/No) \n >>")
-	hyu = hyu.lower()
-	while str(hyu) != "yes" and str(hyu) != "no":
-		hyu = input("\nDo you want to continue? (Yes/No) \n >>")
-		hyu = hyu.lower()
-	if hyu == "no":
-		break
-print("Thanks for playing!")
-
-
-
-
-
-
-#the dealer will hit till 17, then stay
+turn()

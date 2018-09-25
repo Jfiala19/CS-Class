@@ -150,13 +150,10 @@ def endplayer(card1, card2, card3, card4, card5, card6):
 	cardsum = cardvalue(card1) + cardvalue(card2) + cardvalue(card3) + cardvalue(card4) + cardvalue(card5) + cardvalue(card6)
 	if cardsum == 66:
 		prCyan(playerBJ)
-		exit()
 	if cardsum > 21:
 		prCyan(bustuser)
-		exit()
 	if cardsum == 21:
 		prCyan(playerBJ)
-		exit()
 	if cardsum < 21:
 		print("\nYou sit at "+str(cardsum)+". Let's see what the dealer has.\n")
 		dealerfinisher(Dealer1, cardsum)
@@ -191,19 +188,14 @@ def dealerfinisher(card1, playerstatus):
 def comparerer(dealerstatus, playerstatus):
 	if dealerstatus == 66:
 		prCyan(dealerBJ)
-		exit()
 	if dealerstatus > 21:
 		prCyan(dealerbust)
-		exit()
 	if dealerstatus > playerstatus:
 		prCyan("\nThe Dealer's "+str(dealerstatus)+" beats your "+str(playerstatus)+" and you lost your bet")
-		exit()
 	if playerstatus > dealerstatus:
 		prCyan("\nThe Dealer's "+str(dealerstatus)+" is no match to your "+str(playerstatus)+" and you won!")
-		exit()
 	if playerstatus == playerstatus:
 		PrCyan("\nYou tied the dealer and your bet is returned")
-		exit()
 def dealerprint(card):
 	input("\nPress enter to continue. \n")
 	prRed("The Dealer Drew " +cardname(card))
