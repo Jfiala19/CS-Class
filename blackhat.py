@@ -1,23 +1,25 @@
+#Jack Fiala, 9/24/18, Blackjack game, no sources, OMH
+
 import random
-dealerbust = "\nThe Dealer busted and you Won! Way to gain from other's losses!!! \n"
+dealerbust = "\nThe Dealer busted and you Won! Way to gain from other's losses!!! \n" #defining some print statements
 playerBJ = "\nCongrats, you got Blackjack! Winner Winner Chicken Dinner!! \n"
 dealerBJ = "\nThe Dealer got blackjack. Tough bid. \n"
 bustuser = "\nYou busted. Tough way to go out. Be more smarter. "
 rules = "\nEach round you and the dealer will take turns drawing cards trying to get a hand worth 21. Cards 2-10 are worth their face value, and all face cards are worth ten except aces, which are worth 1 or 11. Dealer's aces will count high for his first two draws, and then drop low along with any newly drawn aces. You will go first, drawing more cards until you bust, hit 21, or stay. After that the dealer will draw until they bust, hit 21, or beat your hand."
-def prRed(skk): print("\033[91m {}\033[00m" .format(skk)) 
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk)) #defining some fancy fonts
 def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
 def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
 h = "hit"
 z = "stay"
 endMessage = "\nThanks for playing!!!!\n"
-Dealer1 = 0
+Dealer1 = 0 #defining dealer cards
 Dealer2 = 0
 Dealer3 = 0
 Dealer4 = 0
 Dealer5 = 0
 Dealer6 = 0
 cards= {
-1:{
+1:{ #defining a dictionary of cards and their names/values
 	'name': 'a Ace',
 	'value': '1',
 
@@ -93,7 +95,7 @@ cards= {
 
 def turn():
 	input("\nPress Enter to Draw \n")
-	Player1 = 0
+	Player1 = 0 #defining player cards
 	Player2 = 0
 	Player3 = 0
 	Player4 = 0
@@ -104,19 +106,19 @@ def turn():
 	input("\nPress enter to begin next round. \n")
 	Player2 = drawcard()
 	prGreen("You Drew "+cardname(Player2))
-	naturalcheck(Player1, Player2)
-	Player3 = drawagain(Player1, Player2, 0, 0, 0, 0)
-	checkforinstant(Player1, Player2, Player3, 0, 0, 0)
+	naturalcheck(Player1, Player2) #checking for a natural(ace and ten card)
+	Player3 = drawagain(Player1, Player2, 0, 0, 0, 0) #drawing agian - will give the option to hit and continue or stay and have the dealer play out the rest of the game
+	checkforinstant(Player1, Player2, Player3, 0, 0, 0)#checking to see if hit blackjack or busted
 	Player4 = drawagain(Player1, Player2, Player3, 0, 0, 0)
 	checkforinstant(Player1, Player2, Player3, Player4, 0, 0)
 	Player5 = drawagain(Player1, Player2, Player3, Player4, 0, 0)
 	checkforinstant(Player1, Player2, Player3, Player4, Player5, 0)
 	Player6 = drawagain(Player1, Player2, Player3, Player4, Player5, 0)
 	checkforinstant(Player1, Player2, Player3, Player4, Player5, Player6)
-def drawcard():
+def drawcard(): #draws a number b/w 1 and 13 which correlates to a card
 	cardDrawen = int(random.randrange (1, 14, 1))
 	return cardDrawen
-def cardvalue(card):
+def cardvalue(card): #gives the value of a card ex 13(king) =10
 	return int(cards[card]['value'])
 def naturalcheck(card1, card2): #if ace and a ten card are selected, ace will automatically trigger blackjack 
 	if cardvalue(card1) + cardvalue(card2) == 11 and (cardvalue(card1) == 1 or cardvalue(card2) == 1):
@@ -128,9 +130,9 @@ def dealercheck(card1, card2): #if ace and a ten card are selected, ace will aut
 		return 1 
 	else:
 		return 2
-def cardname(card):
+def cardname(card): #returns the name of the card (ex 13 = king)
 	return cards[card]['name']
-def acecheck(card, draw):
+def acecheck(card, draw): #after staying, the player can set any aces they have high or low
 	if card != 1:
 		return card
 	if card == 1:
@@ -147,9 +149,9 @@ def acecheck(card, draw):
 			return 1
 		elif acer == 11:
 			return 14
-def endplayer(card1, card2, card3, card4, card5, card6):
+def endplayer(card1, card2, card3, card4, card5, card6): #this is the first ending function. Input registering a player blackjack or bust will trigger an end to the game. Choosing to stay (cardsum <21 ) results with the dealer drawing cards
 	cardsum = cardvalue(card1) + cardvalue(card2) + cardvalue(card3) + cardvalue(card4) + cardvalue(card5) + cardvalue(card6)
-	if cardsum == 66:
+	if cardsum == 66: #code for a natural
 		prCyan(playerBJ)
 		print(endMessage)
 		exit()
@@ -164,19 +166,19 @@ def endplayer(card1, card2, card3, card4, card5, card6):
 	if cardsum < 21:
 		print("\nYou sit at "+str(cardsum)+". Let's see what the dealer has.\n")
 		dealerfinisher(Dealer1, cardsum)
-def dealerfinisher(card1, playerstatus):
-	Dealer1 = drawcard()
+def dealerfinisher(card1, playerstatus): #if playercardsum <21, dealer will have to draw, trying to beat them
+	Dealer1 = drawcard() #all cards drawn upfront, added as needed
 	Dealer2 = drawcard()
-	Dealer3 = 1
+	Dealer3 = drawcard()
 	Dealer4 = drawcard()
 	Dealer5 = drawcard()
 	Dealer6 = drawcard()
 	dealerprint(Dealer1)
 	dealerprint(Dealer2)
-	if dealercheck(Dealer1, Dealer2) == 1:
+	if dealercheck(Dealer1, Dealer2) == 1: #if natural, move to second ending function
 		comparerer(66, playerstatus)
 	cardsum = cardvalue(Dealer1) + cardvalue(Dealer2)
-	if cardsum < playerstatus:
+	if cardsum < playerstatus: #keeps on adding cards until the dealer sum passes playersum. If a blackjack occurs, it is coded, and everything else is transferred to the final function as the dealersum
 		cardsum += cardvalue(Dealer3)
 		dealerprint(Dealer3)
 		if cardsum < playerstatus:
@@ -192,7 +194,7 @@ def dealerfinisher(card1, playerstatus):
 		comparerer(66, playerstatus)
 	if cardsum != 21:
 		comparerer(cardsum, playerstatus)
-def comparerer(dealerstatus, playerstatus):
+def comparerer(dealerstatus, playerstatus): #checks for a dealer bust/blackjack, then compares the player score to the dealer
 	if dealerstatus == 66:
 		prCyan(dealerBJ)
 		print(endMessage)
@@ -217,7 +219,7 @@ def dealerprint(card):
 	input("\nPress enter to continue. \n")
 	prRed("The Dealer Drew " +cardname(card))
 
-def drawagain(card1, card2, card3, card4, card5, card6):
+def drawagain(card1, card2, card3, card4, card5, card6):#drawing agian - will give the option to hit and continue or stay and have the dealer play out the rest of the game
 	draw5 = input("\nHit or Stay?\n>>")
 	draw5 = draw5.lower()
 	while str(draw5) != str(z) and str(draw5) != str(h):
@@ -227,7 +229,7 @@ def drawagain(card1, card2, card3, card4, card5, card6):
 		hi = drawcard()
 		prGreen("\nYou Drew "+cardname(hi))
 		return hi
-	if draw5 == "stay":
+	if draw5 == "stay": #after staying, the player can set any aces they have high or low
 		card1 = acecheck(card1, 1)
 		card2 = acecheck(card2, 2)
 		card3 = acecheck(card3, 3)
@@ -236,7 +238,7 @@ def drawagain(card1, card2, card3, card4, card5, card6):
 		card6 = acecheck(card6, 6)
 		endplayer(card1, card2, card3, card4, card5, card6)
 
-def checkforinstant(card1, card2, card3, card4, card5, card6):
+def checkforinstant(card1, card2, card3, card4, card5, card6):#checking to see if hit blackjack or busted. If so, goes to first ending function
 	cardsum = cardvalue(card1) + cardvalue(card2) + cardvalue(card3) + cardvalue(card4) + cardvalue(card5) + cardvalue(card6)
 	if cardsum >= 21:
 		endplayer(card1, card2, card3, card4, card5, card6)
