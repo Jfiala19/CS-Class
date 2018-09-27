@@ -1,0 +1,17 @@
+import random
+#for i in range(1, 100):
+	#if (i%7) == 0:
+	#	print(i)
+sevens =[]
+for i in range(7, 701, 7):
+	sevens.append(i)
+print(sevens, len(sevens))
+print(*sevens, len(sevens)) #prints w/o the brackets
+
+b = []
+for i in range(2, 5000, 2):
+	b.append(i)
+print(b)
+
+c = [x for x in range(2, 5000, 2)] #does the same thing as lines 11, 12, and 13
+

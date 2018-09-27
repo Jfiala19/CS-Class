@@ -212,7 +212,7 @@ def comparerer(dealerstatus, playerstatus): #checks for a dealer bust/blackjack,
 		print(endMessage)
 		exit()
 	if playerstatus == playerstatus:
-		PrCyan("\nYou tied the dealer! Not bad but not good! But especially not good\n")
+		print("\nYou tied the dealer! Not bad but not good! But especially not good\n")
 		print(endMessage)
 		exit()
 def dealerprint(card):

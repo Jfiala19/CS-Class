@@ -1,0 +1,61 @@
+#empty list
+import random
+a = []
+#print list
+print(a)
+a.append(5)
+a.append(3)
+a.append(8)
+a.append(8)
+print(a)
+
+a = [1, 2, 3, 4, 5] + a #stores at beginning of the list
+print(a)
+#a.insert(0, [1, 2, 3, 4, 5]) adds a list within a list
+print(a)
+#print(a[9]) gives index error, position 9 doesn't exit
+
+#remove from list
+del a[5]
+#print(del a[5]) can't do this 
+#a.pop() #deletes from the end of the list
+print(a.pop()) #also returns value
+#a.pop(0) can also accept arguement for location
+print(a)
+print(len(a)) #how many things are in list
+#del [5:] #will delete from colon to the end inclusive
+#del [:5] #will delete before and not including arguement
+#del [y:x] #will delete terms y to x, [y, x)
+x = random.randint(0, len(a)-1)
+del a[x]
+print(a)
+
+print(a[-1]) #gives last thing in list
+
+
+
+# y = 5
+# z = 10
+# temp = y
+# y = z
+# z = temp
+# print(y, z)
+
+y,z = 5,10
+y,z = z,y
+print(y,z)
+
+print(a)
+a[0], a[-1] = a[-1], a[0]
+print(a)
+
+
+#for i in range(5): #increases between 0 and 4
+	#print(i)
+
+for i in range(5, 10): #[5, 10)
+	print(i)
+
+for i in range(2, 10, -2):
+	print(i)
+

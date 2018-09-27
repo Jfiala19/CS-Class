@@ -1,0 +1,5 @@
+import sys
+x = int(sys.argv[1])
+z = length(x)
+while z >= 0:
+	x//(10**)

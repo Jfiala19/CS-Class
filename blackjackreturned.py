@@ -103,8 +103,12 @@ def turn(bet):
 	input("\nPress enter to begin next round. \n")
 	Player2 = drawcard()
 	prGreen("You Drew "+cardname(Player2))
-	naturalcheck(Player1, Player2)
+	pi = naturalcheck(Player1, Player2)
+		if pi != 0:
+			return pi
 	Player3 = drawagain(Player1, Player2, 0, 0, 0, 0)
+		if Player3 = 202:
+			return
 	checkforinstant(Player1, Player2, Player3, 0, 0, 0)
 	Player4 = drawagain(Player1, Player2, Player3, 0, 0, 0)
 	checkforinstant(Player1, Player2, Player3, Player4, 0, 0)
@@ -120,8 +124,9 @@ def cardvalue(card):
 def naturalcheck(card1, card2): #if ace and a ten card are selected, ace will automatically trigger blackjack 
 	if cardvalue(card1) + cardvalue(card2) == 11 and (cardvalue(card1) == 1 or cardvalue(card2) == 1):
 		endplayer(14, 14, 14, 14, 14, 14)
+		return 101
 	else:
-		return
+		return 0
 def dealercheck(card1, card2): #if ace and a ten card are selected, ace will automatically trigger blackjack 
 	if cardvalue(card1) + cardvalue(card2) == 11 and (cardvalue(card1) == 1 or cardvalue(card2) == 1):
 		return 1 
@@ -150,6 +155,7 @@ def endplayer(card1, card2, card3, card4, card5, card6):
 	cardsum = cardvalue(card1) + cardvalue(card2) + cardvalue(card3) + cardvalue(card4) + cardvalue(card5) + cardvalue(card6)
 	if cardsum == 66:
 		prCyan(playerBJ)
+		return
 	if cardsum > 21:
 		prCyan(bustuser)
 	if cardsum == 21:
@@ -218,6 +224,7 @@ def drawagain(card1, card2, card3, card4, card5, card6):
 		card5 = acecheck(card5, 5)
 		card6 = acecheck(card6, 6)
 		endplayer(card1, card2, card3, card4, card5, card6)
+		return
 
 def checkforinstant(card1, card2, card3, card4, card5, card6):
 	cardsum = cardvalue(card1) + cardvalue(card2) + cardvalue(card3) + cardvalue(card4) + cardvalue(card5) + cardvalue(card6)
