@@ -1,6 +1,5 @@
 import sys
 x = int(sys.argv[1])
-
 def fib(term_n):
 	if term_n == 0:
 		return 0

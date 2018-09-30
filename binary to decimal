@@ -2,4 +2,6 @@ import sys
 x = int(sys.argv[1])
 z = length(x)
 while z >= 0:
-	x//(10**)
+	r = x//(10**z)
+	q = (2**z)*r
+	

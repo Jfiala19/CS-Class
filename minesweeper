@@ -1,0 +1,44 @@
+#Jack Fiala, 9/30/18, minesweeper part I, https://stackoverflow.com/questions/7745562/appending-to-2d-lists-in-python, https://snakify.org/en/lessons/two_dimensional_lists_arrays/
+import random as r
+import sys
+w = int(sys.argv[1]) #input width
+h = int(sys.argv[2]) #input heigh
+b = int(sys.argv[3]) #input bomb
+var = 0 #holding variable for later
+board = [[0]*w for x in range(h)] #makes games board to be displayed
+board2 = [[0]*(w+2) for x in range(h+2)] #makes larger gameboard with a cushion of zeros all the way around for when searching for bombs with edge guys
+
+for x in range(b): #repeat b times
+	z = r.randint(0, (w-1)) #give a random width
+	y = r.randint(0, (h-1)) #give random height
+	board[y][z] = "*" #set in game board
+	board2[y+1][z+1] = "*" #set in cushioned board
+
+for d in range(h): #repeat each search in the first row for each column, then move on to next row, etc.
+	for x in range(w):
+		if board2[d+1][x+1] == "*": #selected space is a bomb. The pluses are to shift from game board to display
+			var = 1 #holding varaible now one
+			board[d][x] = 0 #set it equal to zero for now so now problems with latter if statements when adding
+		if board2[d+2][x+1] =="*": #if the space up is a bomb
+			board[d][x] += 1 #add one to space in question
+		if board2[d][x+1] =="*": #down
+			board[d][x] += 1
+		if board2[d+1][x+2] == "*": #right
+			board[d][x] += 1
+		if board2[d+1][x] == "*": #left
+			board[d][x] += 1
+		if board2[d+2][x+2] == "*": #up right
+			board[d][x] += 1
+		if board2[d+2][x] == "*": #up left
+			board[d][x] += 1
+		if board2[d][x+2] =="*": #down right
+			board[d][x] += 1
+		if board2[d][x] =="*": #down left
+			board[d][x] += 1
+		if var == 1: #if holding var is = to 1 (originally was a bomb)
+			board[d][x] = "*" #set back to being a bomb
+			var = 0 #reset holding var
+
+for x in board: #print nicely
+ 	print(*x) 
+
