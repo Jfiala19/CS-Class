@@ -1,4 +1,4 @@
-import random
+ import random
 dealerbust = "\nThe Dealer busted and you Won!\n"
 playerBJ = "\nCongrats, you got Blackjack! You earned twice your bet. \n"
 dealerBJ = "\nThe Dealer got blackjack. You lost your bet. \n"

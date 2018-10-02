@@ -1,0 +1,28 @@
+import random as r
+import sys
+w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
+board = [[0]*(w+2) for x in range(h+2)] #makes larger gameboard with a cushion of zeros all the way around for when searching for bombs with edge guys
+def yet(space): #check to see if space nearby is a bomb, if not, adds 1
+	if space == "*":
+		return ""
+	else:
+		return 1
+for x in range(b): #repeat b times
+	z, y = r.randint(0, (w-1)), r.randint(0, (h-1))  #give a random width and height for bomb w/in inner board
+	if board[y+1][z+1] == "*":
+		break
+	board[y+1][z+1] = "*" #set in game board
+	board[y][z+2] += yet(board[y][z+2])
+	board[y+1][z+2] += yet(board[y+1][z+2])
+	board[y+2][z+2] += yet(board[y+2][z+2])
+	board[y][z+1] += yet(board[y][z+1])
+	board[y+2][z+1] += yet(board[y+2][z+1])
+	board[y][z] += yet(board[y][z])
+	board[y+1][z] += yet(board[y+1][z])
+	board[y+2][z] += yet(board[y+2][z])
+for x in board[1:h+1]:
+	print(*x[1:w+1])
+while 1 ==1:
+	x = input("X-Coord?\n>>")
+	y = input("Y-Coord?\n>>")
+	
