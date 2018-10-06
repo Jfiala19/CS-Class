@@ -27,7 +27,7 @@ def Finisher(board, board2, w, h):
 	reach = 0 #varaible
 	for d in range(h): 
 		for x in range(w):
-			if (board[d+1][x+1] == board2[d+1][x+1]) or (board[d+1][x+1] == "*" and board2[d+1][x+1] == "F"): #goes through every space on board (not including edges). if spaces are =, or bombs are flags, adds to variable
+			if (board[d+1][x+1] == board2[d+1][x+1]) or (board[d+1][x+1] == "*" and board2[d+1][x+1] == "F"): #goes through every space on board (not including edges). if spaces are =, or bombs are flaged, adds to variable
 				reach += 1
 	return reach #if all spaces are = and bombs flagged, this varaible should equal w*h
 def ik(x, y): #goes through all nearby spaces
@@ -60,7 +60,7 @@ for x in range(h+2): #^^^
 	board[x][0] = 1
 	board[x][-1] = 1
 while Finisher(board, board2, w, h) != (w*h): #while board not solved, asks you to clear/flag
-	printb(board2) #bring current state
+	printb(board2) #print current state
 	while True: #input guess coordinates, along with move type. Only excepts numbers for the first 2 inputs
 		try:
 			x,y,m = input("Type X Coord, Y Coord, then Clear or Flag (C/F) space, all seperated by spaces.\n\n>>").split()
