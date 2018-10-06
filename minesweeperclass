@@ -3,34 +3,34 @@ import random as r
 import sys
 w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
 board = [[0]*(w+2) for x in range(h+2)] #makes larger gameboard with a cushion of zeros all the way around for when searching for bombs with edge guys
-lop = 0
-def printb(board):
+lop = 0 #counter variable
+def printb(board): #function for printing baords nicely
 	for x in board[1:h+1]:
 		print(*x[1:w+1])
-def yet(space): #check to see if space nearby is a bomb, if not, adds 1
+def yet(space): #check to see if space nearby is a bomb: if not a bomb, adds 1, if it is a bomb, adds "", which is bascially nothing
 	if space == "*":
 		return ""
 	else:
 		return 1
-def checker(x, y):
-	if board[y][x] == 0 and board2[y][x] == "X":
+def checker(x, y): #different options for spaces near a zero
+	if board[y][x] == 0 and board2[y][x] == "X": #if space next to a zero is also a zero and unrevealed, searches for more nearby zeros via recursion
 		board2[y][x] = 0
 		ik(x, y)
 		return 0
-	elif board2[y][x] != "X": #if display is already revealed, keep it at the spaces value
+	elif board2[y][x] != "X": #if space is already revealed, keep it at the spaces value
 		return board[y][x]
 	elif board[y][x] != (0 or "*") and board2[y][x] == "X": #if space is a nonzero # and display is unrevealed, reveal it
 		return board[y][x]
-	elif board[y][x] == "*" and board2[y][x] == "X": #if space is bomb and display is unrevealed, keep unrevealed
+	elif board[y][x] == "*" and board2[y][x] == "X": #if space is bomb and unrevealed, keep unrevealed
 		return "X"
 def Finisher(board, board2, w, h):
-	reach = 0
+	reach = 0 #varaible
 	for d in range(h): 
 		for x in range(w):
-			if (board[d+1][x+1] == board2[d+1][x+1]) or (board[d+1][x+1] == "*" and board2[d+1][x+1] == "F"):
+			if (board[d+1][x+1] == board2[d+1][x+1]) or (board[d+1][x+1] == "*" and board2[d+1][x+1] == "F"): #goes through every space on board (not including edges). if spaces are =, or bombs are flags, adds to variable
 				reach += 1
-	return reach
-def ik(x, y):
+	return reach #if all spaces are = and bombs flagged, this varaible should equal w*h
+def ik(x, y): #goes through all nearby spaces
 	board2[y][x+1] = checker((x+1),y) #right
 	board2[y+1][x+1] = checker((x+1), (y+1)) #down right
 	board2[y+1][x] = checker(x, (y+1)) #down
@@ -43,8 +43,8 @@ while lop <  b: #rather than just using x in range(b), the counter will only go 
 	z, y = r.randint(0, (w-1)), r.randint(0, (h-1))  #give a random width and height for bomb w/in inner board
 	if board[y+1][z+1] != "*":
 		board[y+1][z+1] = "*" #set in game board
-		board[y][z+2] += yet(board[y][z+2]) #right
-		board[y+1][z+2] += yet(board[y+1][z+2]) #down right
+		board[y][z+2] += yet(board[y][z+2]) #down right space, yet checks to see if nearby space already a bomb
+		board[y+1][z+2] += yet(board[y+1][z+2]) # right
 		board[y+2][z+2] += yet(board[y+2][z+2]) #up right
 		board[y][z+1] += yet(board[y][z+1]) #down 
 		board[y+2][z+1] += yet(board[y+2][z+1]) #up
@@ -52,17 +52,16 @@ while lop <  b: #rather than just using x in range(b), the counter will only go 
 		board[y+1][z] += yet(board[y+1][z]) #left
 		board[y+2][z] += yet(board[y+2][z]) #up left
 		lop +=1 #counter variable up after successful bomb placement
-printb(board)
-board2 = [["X"]*(w+2) for x in range(h+2)] #creates another board for gameplay revealing
-for x in range(w+2): #sets all edges =1 so when clearing bonus zeros doesn't get messed up
+board2 = [["X"]*(w+2) for x in range(h+2)] #creates another board for gameplay revealing. Starts with all Xs
+for x in range(w+2): #sets all edges =1 on original board so when clearing bonus zeros doesn't get messed up
 	board[0][x] = 1
 	board[-1][x] = 1
-for x in range(h+2):
+for x in range(h+2): #^^^
 	board[x][0] = 1
 	board[x][-1] = 1
-while Finisher(board, board2, w, h) != (w*h):
-	printb(board2)
-	while True:
+while Finisher(board, board2, w, h) != (w*h): #while board not solved, asks you to clear/flag
+	printb(board2) #bring current state
+	while True: #input guess coordinates, along with move type. Only excepts numbers for the first 2 inputs
 		try:
 			x,y,m = input("Type X Coord, Y Coord, then Clear or Flag (C/F) space, all seperated by spaces.\n\n>>").split()
 			x,y = int(x), int(y)
@@ -73,19 +72,19 @@ while Finisher(board, board2, w, h) != (w*h):
 		except ValueError:
 			print("\nEnter numbers please.\n")
 
-	if m == "F":
+	if m == "F": #if move is a flag, flag that space
 		board2[y][x] = "F"
-	else:
-		if board[y][x] == "*":
+	else: #if move is to clear
+		if board[y][x] == "*": #if space is bomb, game over
 			print("\nYou Exploded\n\nSolution:\n")
 			printb(board)
 			exit()
-		elif board[y][x] != 0:
+		elif board[y][x] != 0: #if space nonzero, reveal it 
 			board2[y][x] = board[y][x]
-		else:
+		else: #if space is zero, reveal it, along with revealing all nearby zeros and contingous nonzeros
 			board2[y][x] = board[y][x]
-			ik(x, y)
-	print("")
+			ik(x, y) #function for revealing bonus spaces
+	print("\n") #space
 print("You Win!!\n\nSolution:\n")
 printb(board)
 exit()
