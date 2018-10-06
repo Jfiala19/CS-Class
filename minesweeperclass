@@ -1,7 +1,9 @@
 import random as r
 import sys
+flags = 0
 w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
 board = [[0]*(w+2) for x in range(h+2)] #makes larger gameboard with a cushion of zeros all the way around for when searching for bombs with edge guys
+lop = 0
 def printb(board):
 	for x in board[1:h+1]:
 		print(*x[1:w+1])
@@ -17,8 +19,20 @@ def checker(x, y):
 		return 0
 	elif board[y][x] == 0 and board2[y][x] == 0:
 		return 0
-	else:
+	elif board[y][x] != 0 and (board2[y][x] == "X" or board2[y][x] != 0):
+		return board[y][x]
+	elif board[y][x] != 0 and board2[y][x] != (0 or "X"):
+		return board[y][x]
+	elif board[y][x] == "*" and board2[y][x] == "X":
 		return "X"
+	elif board[y][x] == "*" and board2[y][x] == "*":
+		return "*"
+def Finisher():
+	if flags = b:
+		if 
+		return 0
+	else:
+		return 1
 def ik(x, y):
 	board2[y][x+1] = checker((x+1),y) #right
 	board2[y+1][x+1] = checker((x+1), (y+1)) #down right
@@ -28,19 +42,19 @@ def ik(x, y):
 	board2[y-1][x-1] = checker((x-1), (y-1)) #up left
 	board2[y-1][x] = checker(x, (y-1)) #up
 	board2[y-1][x+1] = checker((x+1), (y-1)) #up right
-for x in range(b): #repeat b times
+while lop <  b: #rather than just using x in range(b), the counter will only go up when a bomb is placed in a new stop, esnuring the right number of bombs
 	z, y = r.randint(0, (w-1)), r.randint(0, (h-1))  #give a random width and height for bomb w/in inner board
-	if board[y+1][z+1] == "*":
-		break
-	board[y+1][z+1] = "*" #set in game board
-	board[y][z+2] += yet(board[y][z+2]) #right
-	board[y+1][z+2] += yet(board[y+1][z+2]) #down right
-	board[y+2][z+2] += yet(board[y+2][z+2]) #up right
-	board[y][z+1] += yet(board[y][z+1]) #down 
-	board[y+2][z+1] += yet(board[y+2][z+1]) #up
-	board[y][z] += yet(board[y][z]) #down left
-	board[y+1][z] += yet(board[y+1][z]) #left
-	board[y+2][z] += yet(board[y+2][z]) #up left
+	if board[y+1][z+1] != "*":
+		board[y+1][z+1] = "*" #set in game board
+		board[y][z+2] += yet(board[y][z+2]) #right
+		board[y+1][z+2] += yet(board[y+1][z+2]) #down right
+		board[y+2][z+2] += yet(board[y+2][z+2]) #up right
+		board[y][z+1] += yet(board[y][z+1]) #down 
+		board[y+2][z+1] += yet(board[y+2][z+1]) #up
+		board[y][z] += yet(board[y][z]) #down left
+		board[y+1][z] += yet(board[y+1][z]) #left
+		board[y+2][z] += yet(board[y+2][z]) #up left
+		lop +=1 #counter variable up after successful bomb placement
 printb(board)
 board2 = [["X"]*(w+2) for x in range(h+2)] #creates another board for gameplay revealing
 for x in range(w+2): #sets all edges =1 so when clearing bonus zeros doesn't get messed up
@@ -49,22 +63,34 @@ for x in range(w+2): #sets all edges =1 so when clearing bonus zeros doesn't get
 for x in range(h+2):
 	board[x][0] = 1
 	board[x][-1] = 1
-while True:
+while Finisher() == 0:
 	printb(board2)
 	x = int(input("X-Coord?\n>>"))
 	y = int(input("Y-Coord?\n>>"))
 	move = input("Clear or Flag(C/F)")
 	if move == "F":
-		board2[y][x] = "F"
+		if board2[y][x] != "F":
+			flags += 1
+			board2[y][x] = "F"
 	else:
 		if board[y][x] == "*":
-			print("\nYou Lose\n\nSolution:\n")
+			print("\nYou Exploded\n\nSolution:\n")
 			printb(board)
 			exit()
+		elif board2[y][x] == "F":
+			flags -= 1
+			if board[y][x] != 0:
+				board2[y][x] = board[y][x]
+			else:
+				board2[y][x] = board[y][x]
+				ik(x, y)
 		elif board[y][x] != 0:
 			board2[y][x] = board[y][x]
 		else:
 			board2[y][x] = board[y][x]
 			ik(x, y)
+	print("")
+	print(flags)
+
 			
 
