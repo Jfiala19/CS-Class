@@ -17,22 +17,16 @@ def checker(x, y):
 		board2[y][x] = 0
 		ik(x, y)
 		return 0
-	elif board[y][x] == 0 and board2[y][x] == 0:
-		return 0
-	elif board[y][x] != 0 and (board2[y][x] == "X" or board2[y][x] != 0):
+	elif board2[y][x] != "X": #if display is already revealed, keep it at the spaces value
 		return board[y][x]
-	elif board[y][x] != 0 and board2[y][x] != (0 or "X"):
+	elif board[y][x] != (0 or "*") and board2[y][x] == "X": #if space is a nonzero # and display is unrevealed, reveal it
 		return board[y][x]
-	elif board[y][x] == "*" and board2[y][x] == "X":
+	elif board[y][x] == "*" and board2[y][x] == "X": #if space is bomb and display is unrevealed, keep unrevealed
 		return "X"
-	elif board[y][x] == "*" and board2[y][x] == "*":
-		return "*"
-def Finisher():
-	if flags = b:
-		if 
-		return 0
-	else:
-		return 1
+def Finisher(board, board2, w, h, b, flags):
+	for d in range(h): 
+		for x in range(w):
+	return 0
 def ik(x, y):
 	board2[y][x+1] = checker((x+1),y) #right
 	board2[y+1][x+1] = checker((x+1), (y+1)) #down right
@@ -63,7 +57,7 @@ for x in range(w+2): #sets all edges =1 so when clearing bonus zeros doesn't get
 for x in range(h+2):
 	board[x][0] = 1
 	board[x][-1] = 1
-while Finisher() == 0:
+while Finisher(board, board2, w, h, b, flags) == 0:
 	printb(board2)
 	x = int(input("X-Coord?\n>>"))
 	y = int(input("Y-Coord?\n>>"))
@@ -91,6 +85,7 @@ while Finisher() == 0:
 			ik(x, y)
 	print("")
 	print(flags)
+	print(clearedSpaces)
 
 			
 
