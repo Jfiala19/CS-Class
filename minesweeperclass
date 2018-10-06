@@ -1,3 +1,4 @@
+#10/6/18, Jack Fiala, Minesweeper https://stackoverflow.com/questions/19063114/split-an-input-into-two-python-3
 import random as r
 import sys
 w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
@@ -61,10 +62,18 @@ for x in range(h+2):
 	board[x][-1] = 1
 while Finisher(board, board2, w, h) != (w*h):
 	printb(board2)
-	x = int(input("X-Coord?\n>>"))
-	y = int(input("Y-Coord?\n>>"))
-	move = input("Clear or Flag(C/F)")
-	if move == "F":
+	while True:
+		try:
+			x,y,m = input("Type X Coord, Y Coord, then Clear or Flag (C/F) space, all seperated by spaces.\n\n>>").split()
+			x,y = int(x), int(y)
+			if 0<x<=w and 0<y<=h:
+				break
+			else:
+				print("\nPlease enter numbers within the range of the board.\n")
+		except ValueError:
+			print("\nEnter numbers please.\n")
+
+	if m == "F":
 		board2[y][x] = "F"
 	else:
 		if board[y][x] == "*":
@@ -77,8 +86,9 @@ while Finisher(board, board2, w, h) != (w*h):
 			board2[y][x] = board[y][x]
 			ik(x, y)
 	print("")
-print("You Win!!")
+print("You Win!!\n\nSolution:\n")
 printb(board)
+exit()
 
 			
 
