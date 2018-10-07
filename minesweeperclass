@@ -1,4 +1,4 @@
-#10/6/18, Jack Fiala, Minesweeper https://stackoverflow.com/questions/19063114/split-an-input-into-two-python-3
+#10/7/18, Jack Fiala, Minesweeper https://stackoverflow.com/questions/19063114/split-an-input-into-two-python-3
 import random
 import sys
 w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
