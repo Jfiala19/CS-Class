@@ -1,5 +1,5 @@
 #10/6/18, Jack Fiala, Minesweeper https://stackoverflow.com/questions/19063114/split-an-input-into-two-python-3
-import random as r
+import random
 import sys
 w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
 board = [[0]*(w+2) for x in range(h+2)] #makes larger gameboard with a cushion of zeros all the way around for when searching for bombs with edge guys
@@ -31,26 +31,22 @@ def Finisher(board, board2, w, h):
 				reach += 1
 	return reach #if all spaces are = and bombs flagged, this varaible should equal w*h
 def ik(x, y): #goes through all nearby spaces
-	board2[y][x+1] = checker((x+1),y) #right
-	board2[y+1][x+1] = checker((x+1), (y+1)) #down right
-	board2[y+1][x] = checker(x, (y+1)) #down
-	board2[y+1][x-1] = checker((x-1), (y+1)) #down left
-	board2[y][x-1] = checker((x-1), y) #left
-	board2[y-1][x-1] = checker((x-1), (y-1)) #up left
-	board2[y-1][x] = checker(x, (y-1)) #up
-	board2[y-1][x+1] = checker((x+1), (y-1)) #up right
+	for q in range(-1, 2):
+		for r in range(-1, 2):
+			if q == 0 and r == 0: #ignores original space
+				pass
+			else:
+				board2[y+q][r+x] = checker((r+x), (y+q))
 while lop <  b: #rather than just using x in range(b), the counter will only go up when a bomb is placed in a new stop, esnuring the right number of bombs
-	z, y = r.randint(0, (w-1)), r.randint(0, (h-1))  #give a random width and height for bomb w/in inner board
+	z, y = random.randint(0, (w-1)), random.randint(0, (h-1))  #give a random width and height for bomb w/in inner board
 	if board[y+1][z+1] != "*":
-		board[y+1][z+1] = "*" #set in game board
-		board[y][z+2] += yet(board[y][z+2]) #down right space, yet checks to see if nearby space already a bomb
-		board[y+1][z+2] += yet(board[y+1][z+2]) # right
-		board[y+2][z+2] += yet(board[y+2][z+2]) #up right
-		board[y][z+1] += yet(board[y][z+1]) #down 
-		board[y+2][z+1] += yet(board[y+2][z+1]) #up
-		board[y][z] += yet(board[y][z]) #down left
-		board[y+1][z] += yet(board[y+1][z]) #left
-		board[y+2][z] += yet(board[y+2][z]) #up left
+		board[y+1][z+1] = "*"
+		for q in range(-1, 2): #goes through every board space nearby
+			for r in range(-1, 2):
+				if q == 0 and r == 0: #if itts the space itself, skips it
+					pass
+				else:
+					board[y+q+1][r+z+1] += yet(board[y+q+1][r+z+1]) #checks to see if bomb, if not, adds 1
 		lop +=1 #counter variable up after successful bomb placement
 board2 = [["X"]*(w+2) for x in range(h+2)] #creates another board for gameplay revealing. Starts with all Xs
 for x in range(w+2): #sets all edges =1 on original board so when clearing bonus zeros doesn't get messed up
@@ -60,7 +56,9 @@ for x in range(h+2): #^^^
 	board[x][0] = 1
 	board[x][-1] = 1
 while Finisher(board, board2, w, h) != (w*h): #while board not solved, asks you to clear/flag
+	print("\n")
 	printb(board2) #print current state
+	print("\n")
 	while True: #input guess coordinates, along with move type. Only excepts numbers for the first 2 inputs
 		try:
 			x,y,m = input("Type X Coord, Y Coord, then Clear or Flag (C/F) space, all seperated by spaces.\n\n>>").split()
@@ -84,10 +82,7 @@ while Finisher(board, board2, w, h) != (w*h): #while board not solved, asks you 
 		else: #if space is zero, reveal it, along with revealing all nearby zeros and contingous nonzeros
 			board2[y][x] = board[y][x]
 			ik(x, y) #function for revealing bonus spaces
-	print("\n") #space
-print("You Win!!\n\nSolution:\n")
+print("\nYou Win!!\n\nSolution:\n")
 printb(board)
+print("\n")
 exit()
-
-			
-

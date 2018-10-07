@@ -12,9 +12,11 @@ for x in range(b): #repeat b times
 	#if board[y+1][z+1] == "*":
 	#	break
 	board[y+1][z+1] = "*" #set in game board
-	for q in range(2):
-		for r in range(2):
-			if q != 1 and r != 1:
-				board[y+q][q+z] += yet(board[y+q][q+z])
+	for q in range(-1, 2):
+		for r in range(-1, 2):
+			if q == 0 and r == 0:
+				pass
+			else:
+				board[y+q+1][r+z+1] += yet(board[y+q+1][r+z+1])
 for x in board[1:h+1]:
 	print(*x[1:w+1])
