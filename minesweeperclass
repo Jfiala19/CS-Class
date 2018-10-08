@@ -20,7 +20,7 @@ def checker(x, y): #different options for spaces near a zero
 	elif board2[y][x] != "X": #if space is already revealed, keep it at the spaces value
 		return board[y][x]
 	elif board[y][x] != (0 or "*") and board2[y][x] == "X": #if space is a nonzero # and display is unrevealed, reveal it
-		return board[y][x]
+		return board[y][x] 
 	elif board[y][x] == "*" and board2[y][x] == "X": #if space is bomb and unrevealed, keep unrevealed
 		return "X"
 def Finisher(board, board2, w, h):
@@ -37,7 +37,7 @@ def ik(x, y): #goes through all nearby spaces
 				pass
 			else:
 				board2[y+q][r+x] = checker((r+x), (y+q))
-while lop <  b: #rather than just using x in range(b), the counter will only go up when a bomb is placed in a new stop, esnuring the right number of bombs
+while lop <  b: #rather than just using x in range(b), the counter will only go up when a bomb is placed in a new spot, esnuring the right number of bombs
 	z, y = random.randint(0, (w-1)), random.randint(0, (h-1))  #give a random width and height for bomb w/in inner board
 	if board[y+1][z+1] != "*":
 		board[y+1][z+1] = "*"
