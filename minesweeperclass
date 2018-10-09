@@ -1,7 +1,28 @@
-#10/7/18, Jack Fiala, Minesweeper https://stackoverflow.com/questions/19063114/split-an-input-into-two-python-3 OMH
+#10/8/18, Jack Fiala, Minesweeper https://stackoverflow.com/questions/19063114/split-an-input-into-two-python-3 OMH
 import random
-import sys
-w, h, b = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]) #input width, height, # of bombs
+while True: #this loop while force the user to select a legimate game mode
+	cvb = (input("\n\nHi and Welcome to Minsweeper! \n\nFlag all the mines and clear all the spaces to win. \n\nPlease select the level you want to play at:\n\nFor Easy (3 by 3 board, 1 bomb) Type E\nFor Medium (5 by 5 board, 3 bombs) Type M\nFor Hard (8 by 8 board, 8 bombs) Type H\nFor Custom Settings Type C\n>>>")).lower()
+	if cvb == "e": #pre-determined setups
+		w,h,b =3,3,1
+		break
+	if cvb == "m":
+		w,h,b = 5,5,3
+		break
+	if cvb == "h":
+		w,h,b = 8,8,8
+		break
+	if cvb == "c": #custom settings
+		while True: #to avoid errors with entering letters
+			try:
+				w,h,b = input("Enter Width, Height, and Number of Bombs, all seperated by spaces.\n\n>>").split()
+				w,h,b = int(w), int(h), int(b)
+				if b < (w*h):
+					break
+				else:
+					print("\nPlease print an amount of bombs that will fit in the board.\n")
+			except ValueError:
+				print("\nEnter numbers please.\n")
+		break
 board = [[0]*(w+2) for x in range(h+2)] #makes larger gameboard with a cushion of zeros all the way around for when searching for bombs with edge guys
 lop = 0 #counter variable
 def printb(board): #function for printing baords nicely
