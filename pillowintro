@@ -1,0 +1,25 @@
+#Jack Fiala, 10/13/18, Three Parametric Spirals using Pillow, http://www.mathematische-basteleien.de/spiral.htm, OMH
+from PIL import Image
+imgx = 512
+imgy = 512
+import math
+#defining the image
+image = Image.new("RGB", (imgx, imgy)) #tuple = 2 or 3 values, RGB = color schemes, there are other ones
+image.putpixel((0,0), (255, 0, 0)) #postion in picture, color scheme. Red, Gree, Blue, 0 -255
+
+def spiral(xx, yy):
+	for w in range(0, 20000, 1): #how many go arounds in terms of radians each spiral will have
+		w = math.radians(w) #converting degrees into radians (I orginaly was testing the equations in my calculator, so was using degrees to make these equations)
+		q = (w*math.cos(w)) + xx #defining equations parametrically, xx and yy are starting points
+		y = (w*math.sin(w)) + yy
+		y = int(y) #making sure vars are ints
+		q = int(q)
+		if (0<y<512) and (0<q<512): #making sure in range of picture
+			image.putpixel((q,(512-y)), (255, 0, 0)) 
+
+spiral(256, 386) #three spirals, each with seperate centers
+spiral(120, 170)
+spiral(386, 170)
+
+image.save("demo.png", "PNG")
+ 
