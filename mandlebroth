@@ -1,0 +1,27 @@
+#Jack Fiala
+#10/18/18
+#making a mandlebroth set, assigning certain colors to certain iterations required for escape
+#https://stackoverflow.com/questions/8370637/complex-numbers-usage-in-python
+
+
+from PIL import Image #library
+imgx = 512 #defining size
+imgy = 512
+image = Image.new("RGB", (imgx, imgy)) #defining image
+xx = 4/(imgx) #breaking the domain of [-2,2] into 512 pixels
+yy = 4/(imgy) #same as ^^ just for range instead
+for w in range(imgx): #go through each column
+	for q in range(imgy): #go through each row
+		xcord = -2 + (w*xx) #xcord of tested c value. Multiplying by 4/512 allows a steady increase of xcords between -2 and 2
+		ycord = 2 - (q*yy) #same as ^^^ but for ycords
+		c = complex(xcord, ycord) #converting coordinates into a complex number, useful for operations below
+		z1 = complex(0, 0) #Z1 is always = 0
+		i = 0 #counts the iterations before escape
+		while i <= 255: #will go 255 iterations before automatically breaking
+			z2 = pow(z1, 2) + c #formula
+			if abs(z2) >= 2: #if the abs value of z2 is outside of circle, it escaped, break, i value is what it is
+				break
+			z1 = z2 #if didn't escape, plug z2 in for z1 in next iteration
+			i += 1 #if didn't escape, the number of iterations has increased
+		image.putpixel((w,q), (i, 0, 0)) #color pixel on a gradient of i.
+image.save("mandlebro.png", "PNG")

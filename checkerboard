@@ -1,0 +1,23 @@
+from PIL import Image
+imgx = 512
+imgy = 512
+import math
+y = int(input("Number of columns"))
+z = int(input("Number of Rows"))
+width = int(512/y)
+height = int(512/z)
+image = Image.new("RGB", (imgx, imgy))
+image.putpixel((0,0), (255, 0, 0))
+c = 1
+
+for i in range(z): #repeat for each row
+	for q in range(height):
+		for r in range(y):
+			for t in range(width):
+				if (c%2) == 0:
+					image.putpixel((int((r*width) +t),(int((i*height) + q))), (255, 0, 0))
+				else:
+					image.putpixel((int((r*width) +t),(int((i*height) + q))), (0, 0, 0))
+			c += 1
+	c += 1
+image.save("checkerboard.png", "PNG")

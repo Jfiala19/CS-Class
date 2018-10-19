@@ -1,0 +1,25 @@
+from PIL import Image
+imgx = 512
+imgy = 512
+import math
+y = int(input("Number of columns"))
+z = int(input("Number of Rows"))
+width = int(512/y)
+height = int(512/z)
+image = Image.new("RGB", (imgx, imgy))
+
+
+def color(color, h, w):
+	for q in range(height):
+		for r in range(width):
+			image.putpixel(((h +q),(w+r)), (color, 0, 0))
+
+for w in range(z):
+	for e in range(y):
+		if (w+e)%2 == 0:
+			color(255, (w*height), (e*width))
+		else:
+			color(0, (w*height), (e*width))
+
+
+image.save("checker2.png", "PNG")
