@@ -1,0 +1,31 @@
+#Class version 
+from PIL import Image
+import math as m
+
+xmin, xmax = -.3829037428734658,  -.37
+ymin, ymax = -.651238745612374, -.64
+
+imgx, imgy = 512, 512
+
+maxIt = 256
+
+image = Image.new("RGB", (imgx, imgy))
+
+for y in range(imgy):
+	cy = y * (ymax-ymin) / (imgy-1 )+ ymin
+	for x in range(imgx):
+		cx = x * (xmax-xmin) / (imgx-1) + xmin
+		c = complex(cx, cy)
+		z = 0
+		for i in range(maxIt):
+			if abs(z) > 2.0:
+				break
+			z = z**2 + c
+
+		r = int(i**7)%256
+		b = int(255-(i**2))%256
+		g = int(r+2*b)%256
+
+	
+		image.putpixel((x,y), (r,g,b))
+image.show()
