@@ -1,15 +1,22 @@
-#Class version 
+#Jack Fiala
+#10/21/18
+#Using Mandelbrot Sets and other fractals to assign colors to pixels, generating artwork
+#https://www.atopon.org/mandel/
+#https://docs.python.org/2/library/colorsys.html
+
 from PIL import Image
 import math as m
+import colorsys
 
-xmin, xmax = -.3829037428734658,  -.37
-ymin, ymax = -.651238745612374, -.64
-
-imgx, imgy = 512, 512
+#xmin, xmax = -.3829037428734658,  -.37
+#ymin, ymax = -.651238745612374, -.64
+xmin, xmax = -.7082080078125, -.68876953125
+ymin, ymax = .3209472656250001, .3403857421875001
+imgx, imgy = 512,512
 
 maxIt = 256
 
-image = Image.new("RGB", (imgx, imgy))
+image = Image.new("HSV", (imgx, imgy))
 
 for y in range(imgy):
 	cy = y * (ymax-ymin) / (imgy-1 )+ ymin
@@ -22,10 +29,14 @@ for y in range(imgy):
 				break
 			z = z**2 + c
 
-		r = int(i**7)%256
-		b = int(255-(i**2))%256
-		g = int(r+2*b)%256
-
+		r = int(1/(m.tan(m.log(i))))%256
+		b = int(m.pow(i, m.e))%256
+		g = int(m.tan(i))%256
+		h, s, v = colorsys.rgb_to_hsv(r,g,b)
+		#h,s,v, =r,g,b
 	
-		image.putpixel((x,y), (r,g,b))
+		image.putpixel((x,y), (int(h),int(s),int(v)))
 image.show()
+
+
+
