@@ -1,7 +1,7 @@
 #Jack Fiala
 #10/21/18
 
-#Using Mandelbrot Sets and other fractals to assign colors to pixels, generating artwork
+#The program uses the mandelbrot set and other fractals to assign colors to pixels, generating artwork. My first one uses the hsv color space, allowing it to create a smooth transisition between iterations(rainbow effect) along with adjust saturation and value. My second one creates a image using rgb, then smoothes it by averaging the color of a certain pixel with 5 pixels in each direction. My third image uses a fractal I programmed and makes a tree like structure (each line splits into two smaller lines, each at 45 degrees)
 
 
 

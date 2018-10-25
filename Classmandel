@@ -18,6 +18,7 @@ maxIt = 256
 
 image = Image.new("HSV", (imgx, imgy))
 
+
 for y in range(imgy):
 	cy = y * (ymax-ymin) / (imgy-1 )+ ymin
 	for x in range(imgx):
