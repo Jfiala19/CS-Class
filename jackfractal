@@ -18,18 +18,21 @@ image = Image.new("RGB", (imgx, imgy))
 #6: y= -|x|
 #7: y = -c
 #8: y= -x
+for x in range(512):
+	for y in range(512):
+		image.putpixel((x,y), (255,255,153))
 
 def placingpixels(x, y):
 	y = 512 -y
 	if 0<y<511 and 0<x<511:
-		image.putpixel((x,y), (255,0,0))
+		image.putpixel((x,y), (165,42,42))
 	else:
 		pass
 
 def drawnextbranch(xstart, ystart, p, length, sign):
 	newlength = int(length*(.75))
 	xcomp = int(m.cos((m.pi/4))*newlength)
-	if newlength < 3:
+	if newlength < 2:
 		pass
 	elif p == 1:
 		for t in range(0, newlength +1):
@@ -43,21 +46,21 @@ def drawnextbranch(xstart, ystart, p, length, sign):
 	elif p == 2:
 		for t in range(0, xcomp+1):
 			x = xstart +t
-			y= ystart + abs(t)
+			y= ystart + sign*t
 			placingpixels(x,y)
 		xstart = xstart + xcomp
-		ystart = ystart +xcomp
-		drawnextbranch(xstart, ystart, 1, newlength, 1)
+		ystart = ystart + sign*xcomp
+		drawnextbranch(xstart, ystart, 1, newlength, sign*1)
 		drawnextbranch(xstart, ystart, 4, newlength, 1)
 	elif p == 3:
 		for t in range(-xcomp, 1):
 			x = xstart +t
-			y= ystart + abs(t)
+			y= ystart + sign*abs(t)
 			placingpixels(x,y)
 		xstart = xstart- xcomp
-		ystart = ystart +xcomp
-		drawnextbranch(xstart, ystart, 1, newlength, 1)
-		drawnextbranch(xstart, ystart, 5, newlength, 1)
+		ystart = ystart +sign*xcomp
+		drawnextbranch(xstart, ystart, 1, newlength, sign*1)
+		drawnextbranch(xstart, ystart, 4, newlength, -1)
 	elif p == 4:
 		for t in range(newlength+1):
 			x = xstart + sign*t
@@ -65,46 +68,13 @@ def drawnextbranch(xstart, ystart, p, length, sign):
 			placingpixels(x,y)
 		xstart = xstart + sign*newlength
 		ystart = ystart
-		drawnextbranch(xstart, ystart, 2, newlength, 1)
-		drawnextbranch(xstart, ystart, 8, newlength, 1)
-	elif p == 5:
-		for t in range(newlength+1):
-			x = xstart - t
-			y = ystart
-			placingpixels(x,y)
-		xstart = xstart - newlength
-		ystart = ystart
-		drawnextbranch(xstart, ystart, 3, newlength, 1)
-		drawnextbranch(xstart, ystart, 6, newlength, 1)
-	elif p == 6:
-		for t in range(-xcomp, 1):
-			x = xstart +t
-			y= ystart - abs(t)
-			placingpixels(x,y)
-		xstart = xstart- xcomp
-		ystart = ystart - xcomp
-		drawnextbranch(xstart, ystart, 1, newlength, -1)
-		drawnextbranch(xstart, ystart, 5, newlength, 1)
-	elif p == 8:
-		for t in range(0, xcomp+1):
-			x = xstart +t
-			y= ystart - t
-			placingpixels(x,y)
-		xstart = xstart + xcomp
-		ystart = ystart -xcomp
-		drawnextbranch(xstart, ystart, 4, newlength, 1)
-		drawnextbranch(xstart, ystart, 1, newlength, -1)
-
-
+		if sign == -1:
+			drawnextbranch(xstart, ystart, 3, newlength, -1)
+			drawnextbranch(xstart, ystart, 3, newlength, 1)
+		else:
+			drawnextbranch(xstart, ystart, 2, newlength, -1)
+			drawnextbranch(xstart, ystart, 2, newlength, 1)
 
 drawnextbranch(255, 0, 1, 200, 1)
-
-
-
-
-
-
-
-
 
 image.show()
