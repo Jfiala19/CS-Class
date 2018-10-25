@@ -30,7 +30,7 @@ def placingpixels(x, y):
 		pass
 
 def drawnextbranch(xstart, ystart, p, length, sign):
-	newlength = int(length*(.75))
+	newlength = int(length*(.72))
 	xcomp = int(m.cos((m.pi/4))*newlength)
 	if newlength < 2:
 		pass
