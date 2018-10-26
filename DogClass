@@ -1,0 +1,57 @@
+class Dog: 
+	#(Want it to be capitalized, singular)
+	#constructor - sets up dog, section of code that will execute
+	#initializes properties and sets up the dog object
+	def __init__(self, name, hunger, energy, happy, BDE): 
+	#self refers to class, will use to create properties for the class
+	#don't want these value to be inputs, don't want a direct interaction
+		self.hunger = hunger
+		self.energy = energy
+		self.happy = happy
+		self.name = name
+		self.BDE = BDE
+	#Methods (A function within a class)
+	def eat(self, amount):
+		if self.hunger >0:
+			self.hunger -= amount 
+			self.energy += amount
+			self.happy += 1
+			status = self.name+ " just ate a delicious meal!"
+		else:
+			status = self.name+ " He's a full man, leave him alone!"
+		return status
+	def walk(self):
+		if self.energy > 0:
+			self.hunger += 1
+			self.energy -= 1
+			self.BDE += 1
+			self.happy += 1
+			status = self.name+ " pulled you the whole time!"
+		else:
+			status = self.name + " is too tired"
+		return status
+	def stats(self):
+		return "Name: "+str(self.name)+"\nEnergy: "+str(self.energy)+"\nHunger: "+str(self.hunger)
+
+
+
+
+namer = input("\nName of your fellow companion: ")
+
+dog1 = Dog(namer, 5, 5, 5, 5)
+
+
+while True:
+	print("\n" + dog1.stats())
+	choice = input("\nWhat do you want to do?\n")
+
+	if choice == "eat":
+		print(dog1.eat(2))
+
+	elif choice == "kill":
+		print("\n"+dog1.name +" has died\n")
+		break
+
+	elif choice == "walk":
+		print(dog1.walk())
+
