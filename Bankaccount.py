@@ -1,7 +1,10 @@
+global counter
+
 class Account: 
 
-	def __init__(self, name, pin, balance, OC, SQ, SA): 
+	def __init__(self, number, name, pin, balance, OC, SQ, SA): 
 		self.name = name
+		self.number = number
 		self.pin = pin
 		self.balance = balance
 		self.OC = OC
@@ -38,15 +41,33 @@ def accountmanagement(account):
 			break
 
 
-a44a = Account("Jack", "1234", 100, 1, "What was the name of your first pet?", "Cali")
+A1 = Account(a44a, "Jack", "1234", 100, 1, "What was the name of your first pet?", "Cali")
+A2 = Account(g668, "Qin", "5768", 1000, 1, "What is your favorite team?", "Browns")
+Users[] = [A1, A2]
 
 
 
-
-
-while True:
+for i in range(3):
 	try1 = input("Enter your account number: ")
 	try2 = input("Enter your Pin Number: ")
+	for z in range(len(Users)):
+		y = Users[z]
+		r = y.number
+		q = y.pin
+		if try1 == y and try2 == q:
+			accountmanagement(y)
+counter = 0			
+for z in range(len(Users)):
+	x = Users[z]
+	if x.number == try1:
+		counter += 1
+if counter == 1:
+	answer = input()
+else:
+	print("Invalid Number/Pin. Goodbye\n\n")
+
+
+
 	if try2 == a44a.pin:
 		print("\nHello "+a44a.name)
 		accountmanagement(a44a)
