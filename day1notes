@@ -1,0 +1,77 @@
+https://www.tutorialspoint.com/python/python_further_extensions.htm
+https://www.amazon.com/Mattel-M0253-Color-Screen-UNO/dp/B000OLELRS
+
+Parts
+AI
+Deck/cards
+Color
+Red
+Yellow
+Blue
+Green
+Special cards
+Draw 2  - x2 for each color
+Draw 4 Wild - 4 total 
+Reverse - x2 for each color
+Skip - x2 for each color
+Wild Card - 4 total
+Basic cards (0-9)
+2 per color
+Except zeros - only 1 per color
+Card class
+Color
+1,2,3,4, 5 
+5 is the a wild card
+Number
+0 -9, 10, 11, 12, 13, 14
+10-14 are special cards
+
+
+Creating deck
+For loops
+GUI
+Display your hand and player name
+End turn (hides player’s hand)
+Start turn (shows next player’s hand)
+Game table
+Indicators how many players
+Whose turn
+User/computer
+How many cards each player has
+Order (clockwise/counterclockwise circle)
+Gameplay
+Initialization
+Players:
+Up to 4 players
+Minimum of 2
+Both Users and computers
+How many users?
+name?
+How many total players?
+CPU 1 etc.
+Cards
+Shuffle Deck
+Each players dealt 7 
+Each player will have their own deck
+Draw pile initialization
+Turn
+Place top card from draw deck on a discard deck
+Player the move:
+Moves:
+Same Number or symbol
+2 on a 2
+Skip on a skip
+Wild on a wild
+Same color
+Wild cards
+Choose color
+Wild draw 4
+Choose color
+Other player can challenge (Maybe?)
+Analysis
+If draw 2, skip, draw 4
+Skips the next player
+If reverse
+Order is reversed
+
+
