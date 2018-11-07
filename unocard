@@ -1,0 +1,213 @@
+import random
+from Tkinter import*
+
+class Card: 
+
+	def __init__(self, color, rank): 
+		self.color = color
+		self.rank = int(rank)
+		self.img = Button(window, image=image, command =use Card)
+	def id(self):
+		if 0<= self.rank <= 9:
+			return self.rank
+		if self.rank == 10:
+			return "Draw 2"
+		if self.rank == 11:
+			return "Draw 4"
+		if self.rank == 12:
+			return "Reverse"
+		if self.rank == 13:
+			return "Skip"
+		if self.rank == 14:
+			return "Card" #Wild Card
+	def colorer(self):
+		if self.color == "b":
+			return "Blue"
+		if self.color == "r":
+			return "Red"
+		if self.color == "g":
+			return "Green"
+		if self.color == "y":
+			return "Yellow"
+		if self.color =="w":
+			return "Wild"
+	def __str__(self):	
+		return self.colorer() + " " + str(self.id())
+
+
+class Deck:
+
+	def __init__(self, present): 
+		self.cards = []
+		self.present = present
+		if self.present == 1:
+			colors = ["b", "r", "g", "y"]
+			for i in range(len(colors)):
+				for x in range(2):
+					for z in range(9):
+						self.cards.append(Card(colors[i], z))
+					self.cards.append(Card(colors[i], 10))
+					self.cards.append(Card(colors[i], 12))
+					self.cards.append(Card(colors[i], 13))
+			for q in range(4):
+				self.cards.append(Card("w", 11))
+				self.cards.append(Card("w", 14))
+			self.shuffle()
+
+	def shuffle(self):
+		random.shuffle(self.cards)
+
+	def numcards(self):
+		return len(self.cards)
+
+	def deal(self):
+		return self.cards.pop(0)
+
+	def playc(self, position):
+		return self.cards.pop(position)
+
+	def addcard(self, card):
+		self.cards.append(card)
+
+	def addtotop(self, card):
+		self.cards = [card] + self.cards
+	def cardid(self, position):
+		return self.cards[position]
+
+	def __str__(self):
+		hand = ""
+		for i in range(len(self.cards)):
+			hand = hand + str(self.cards[i]) +"\n"
+		return str(hand)
+
+
+players = ["Jack", "Anan", "Billy", "Bobby"]
+drawpile = Deck(1)
+discard = Deck(0)
+
+
+
+def setup():
+	global drawpile
+	global players
+	global discard
+	for i in range(len(players)):
+		players[i] = Deck(0)
+
+def startgame():
+	global drawpile
+	global players
+	global discard
+	for i in range(7):
+		for z in range(len(players)):
+			players[z].addcard(drawpile.deal())
+	# for r in range(len(players)):
+	# 	print(players[r])
+	# 	print("\n")
+	#print(drawpile)
+	while (1 == 1):
+		discard.addtotop(drawpile.deal())
+		if discard.cards[0].rank <= 9:
+			break
+
+
+def turn(player, direction):
+	global drawpile
+	global players
+	global discard
+
+	print("Player" + str(player+ 1))
+
+	hand = players[player]
+	print(hand)
+
+	print("\n")
+	print(discard.cards[0])
+
+
+	colorp = discard.cards[0].color
+	rankp = int(discard.cards[0].rank)
+
+	# if rankp == 10:
+	# 	hand.addcard(drawpile.deal())
+	# 	hand.addcard(drawpile.deal())
+	# elif rankp == 11:
+	# 	for  i in range(4):
+	# 		hand.addcard(drawpile.deal())
+	# elif rankp == 13:
+	# 	pass
+	# elif rankp == 12:
+	# 	pass 
+	else:
+		move1 = int(input("Would you like to draw(1) of play a card(2)"))
+		if move1 == 1:
+			hand.addcard(drawpile.deal())
+			print(hand.cards[-1])
+			move2 = input("Would to play card(1) or end turn(2)")
+			if move2 == 1:
+				move1 = 2
+			if move2 == 2:
+				pass
+		if move1 == 2:
+			cardpos = int(input("which card (Position"))
+			if hand.cards[cardpos].color == colorp or int(hand.cards[cardpos].rank) == rankp:
+				discard.addtotop(hand.playc(cardpos))
+				print("Okay")
+
+				if discard.cards[0] == 10:
+					players[player+(1*direction)].addcard(drawpile.deal())
+					players[player+(1*direction)].addcard(drawpile.deal())
+					return 2
+
+
+
+
+			if hand.cards[cardpos].color == "w":
+				colorchoice = input("Color?")
+				hand.cards[cardpos] = Card(colorchoice, hand.cards[cardpos].rank)
+	print("")
+	if rankp == 12:
+		return -1
+	else:
+		return 1
+
+
+
+print("________________________________")
+setup()
+startgame()
+turner = 0 #which players turn is it?
+direction = 1
+while 1 == 1:
+	value = turn(turner)
+	if value == 1:
+		turner += 1*direction 
+	if value == -1:
+		turner +=  -1*direction
+		direction = -1 * direction
+	if turner > (len(players) - 1):
+		turner = 0
+	if turner == -1:
+		turner = (len(players)-1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
