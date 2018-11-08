@@ -4,7 +4,7 @@ import random
 class Card: #Card Class
 
 	def __init__(self, color, rank): #Take in color, rank, and image to make each card
-		self.color = color
+		self.color = int(color)
 		self.rank = int(rank)
 		#self.img = Button(window, image=image, command =use Card) 
 	def id(self):
@@ -110,7 +110,7 @@ def startgame():
 			break
 
 
-def turn(player, direction):
+def turn(player):
 	global drawpile
 	global players
 	global discard
@@ -126,44 +126,45 @@ def turn(player, direction):
 
 	colorp = discard.cards[0].color
 	rankp = int(discard.cards[0].rank)
-	playedcard = 0
+	playedcard = Card(4, 0)
 
 	while True:
 		move1 = int(input("Type position of card(#) or draw card(10)"))
-		if 0<=move1<=len(players[player].cards):
-			if players[player].cards[move1].rank == rankp or players[player].cards[move1].color == colorp:
-				playercard = players[player].cards[move1]
+		if 0<=move1<=(len(players[player].cards)-1):
+			if players[player].cards[move1].rank == rankp or players[player].cards[move1].color == colorp or players[player].cards[move1].color == 4:
+				playedcard = players[player].cards[move1]
 				discard.addtotop(players[player].deal(move1))
 				break
 		elif move1 == 10:
 			players[player].addcard(drawpile.deal(0))
 			while 1==1:
 				move2 = int(input("Type position of card(#) or end turn(10)"))
-				if 0<=move2<=len(players[player].cards):
-					if players[player].cards[move2].rank == rankp or players[player].cards[move2].color == colorp:
+				if 0<=move2<=(len(players[player].cards) -1):
+					if players[player].cards[move2].rank == rankp or players[player].cards[move2].color == colorp or players[player].cards[move1].color == 4:
 						playedcard = players[player].cards[move2]
-						discard.addtotop(players[player].deal(move1))
+						discard.addtotop(players[player].deal(move2))
 						break
 				elif move2 == 10:
 					break
 			break
-	if playedcard == 0:
+	print(str(playedcard))
+	if playedcard.rank == 0 and playedcard.color == 4:
 		return 1
 	elif playedcard.rank <= 9:
 		return 1
 	elif playedcard.rank == 10:
-		players[player+(1*direction)].addcard(drawpile.deal(0))
+		players[player+(1*direction)].addcard(drawpile.deal(0))	
 		players[player+(1*direction)].addcard(drawpile.deal(0))
 		return 2
 	elif playedcard.rank == 11:
 		for i in range(4):
 			players[player+(1*direction)].addcard(drawpile.deal(0))
-			choicecolor = input("Choice color Blue(0), Red(1), Green(2), Yellow(3)")
-			discard.cards[0] = Card(choicecolor, discard.cards[0].rank)
-		return 2
-	elif playedcard.rank == 12:
+		choicecolor = input("Choice color Blue(0), Red(1), Green(2), Yellow(3)")
+		discard.cards[0] = Card(choicecolor, discard.cards[0].rank)
 		return 2
 	elif playedcard.rank == 13:
+		return 2
+	elif playedcard.rank == 12:
 		return -1
 	elif playedcard.rank == 14:
 		choicecolor = input("Choice color Blue(0), Red(1), Green(2), Yellow(3)")
@@ -177,7 +178,8 @@ startgame()
 turner = 0 #which players turn is it?
 direction = 1
 while True:
-	value = turn(turner, direction)
+	value = turn(turner)
+	print(value)
 	if value == -1:
 		direction = (-1)*direction
 		value = 1
