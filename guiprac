@@ -6,6 +6,7 @@ class Card: #Card Class
 	def __init__(self, color, rank): #Take in color, rank, and image to make each card
 		self.color = int(color)
 		self.rank = int(rank)
+		self.but = Button(playarea,image=self.img, command = self.useCard, cursor = "pirate")
 	def colorer(self):
 		if self.color == 0:
 			return "Red"
@@ -39,23 +40,16 @@ class Card: #Card Class
 def useCard():
 	print("It works")
 
-Card5 = Card(4, 11)
-print(Card5.imager())
 window = Tk()
-infobar = Frame(window)
-infobar.pack(side=TOP)
-label1 = Label(infobar, text = "Player 1", bg = "blue", width = 5, height = 5)
-label2 = Label(infobar, text = "Player 2")
-label3 = Label(infobar, text = "Player 3")
-label1.pack(side=LEFT)
-label2.pack(side=LEFT)
-label3.pack(side=LEFT)
-playarea = Frame(window, bg = "black")
+playarea = Frame(window, bg = "black") 
 playarea.pack()
-testlabel = Label(playarea, width=10, height=10, bg = "red", text = "CHECK")
-testlabel.pack()
-card2 = PhotoImage(file=Card5.imager())
-testimg2 = Button(playarea,image=card2, command = useCard)
-testimg2.pack()
+
+c1 = Card(0,0)
+c1.but.pack(side=LEFT)
+c2 = Card(1,1)
+c2.but.pack(side=LEFT)
+c2.but.pack_forget()
+
+window.mainloop() 
 
 window.mainloop()
