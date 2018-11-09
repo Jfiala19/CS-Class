@@ -6,7 +6,7 @@ class Card: #Card Class
 	def __init__(self, color, rank): #Take in color, rank, and image to make each card
 		self.color = int(color)
 		self.rank = int(rank)
-		#self.img = Button(window, image=image, command =use Card) 
+		self.but = Button(playarea,image=self.img, command = self.useCard, cursor = "pirate") 
 	def id(self):
 		if 0<= self.rank <= 9: # If the card is a number card
 			return self.rank
