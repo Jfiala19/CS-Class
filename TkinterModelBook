@@ -1,0 +1,79 @@
+from tkinter import *
+
+from tkinter import messagebox
+
+#Making a button with text
+window = Tk()
+#Changes the size of the window
+window.geometry("1920x1080")
+
+def helloCallBack():
+   note = messagebox.showinfo( "Sup Students", "It's Henry and John")
+
+click = Button(window, text = "Click Me", command = helloCallBack)
+click.place(x = 960,y = 900)
+window.mainloop()
+
+
+#Making shapes with Canvas
+
+window1 = Tk()
+
+blank = Canvas(window, bg = "red", height = 600, width = 1000)
+
+#Coordinates for where they appear on the canvas
+coordinates = 800, 250, 900, 350
+semicircle = blank.create_arc(coordinates, start = 0, extent = 180, fill = "green")
+line1 = blank.create_line(10,10,200,200,fill = 'black')
+square = blank.create_polygon(300, 300, 300, 600, 600, 600, 600, 300,  fill = 'blue')
+blank.pack()
+window1.mainloop()
+
+#Label Widget
+
+window2 =Tk()
+
+msg = "What is up world!"
+popup = Label(window2, text = msg, fg ="blue")
+
+popup.pack(anchor = CENTER)
+window2.mainloop()
+
+#Message Widget
+window3 = Tk()
+
+#Creates a string variable
+text1 = StringVar()
+text2 = Message(window3, textvariable = text1, bg ="green")
+text1.set("Watch out for the car!!!")
+text2.pack()
+window3.mainloop()
+
+
+#Entry Widget
+window4 = Tk()
+name = Label(window4, text = "Name:")
+name.pack( side = LEFT)
+answer = Entry(window4)
+
+answer.pack()
+
+window4.mainloop()
+
+#Mulpitle Choice Popup Widget
+tk = Tk()
+var = IntVar()
+ 
+Var1 = Radiobutton(tk, text="Variable 1", variable=var, value=1,
+                  command=Ans)
+Var2 = Radiobutton(tk, text="Variable 2", variable=var, value=2,
+                  command=Ans)
+Var3 = Radiobutton(tk, text="Variable 3", variable=var, value=3,
+                  command=Ans)
+Var1.pack( anchor = W)
+Var2.pack( anchor = W)
+Var3.pack( anchor = W)
+ 
+label = Label(tk)
+label.pack()
+tk.mainloop()

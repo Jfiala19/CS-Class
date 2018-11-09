@@ -1,6 +1,40 @@
-from tkinter import*
+import random
+from tkinter import * # Get everything from Tkinter without having to type Tkinter. before it every time
 
-root = Tk()
-theLabel = Label(root, text="Hello fatyy")
-theLabel.pack()
-root.mainloop()
+
+class Card: #Card Class
+	def __init__(self, color, rank, image): #Take in color, rank, and image to make each card
+		self.color = int(color)
+		self.rank = int(rank)
+		imag = PhotoImage(file=image)
+		self.img = Button(playarea, text = "OK",image=imag, command = useCard)
+	def colorer(self):
+		if self.color == 0:
+			return "Blue"
+		if self.color == 1:
+			return "Red"
+		if self.color == 2:
+			return "Green"
+		if self.color == 3:
+			return "Yellow"
+		if self.color == 4:
+			return "Wild"
+	def __str__(self):	
+		return self.colorer() + " " + str(self.id())
+
+def useCard():
+	print("It works")
+
+window = Tk()
+playarea = Frame(window, bg = "black")
+playarea.pack()
+infobar = Frame(window)
+infobar.pack(side=TOP)
+label1 = Label(infobar, text = "Player 1", borderwidth= 1)
+label2 = Label(infobar, text = "Player 1", borderwidth= 1)
+label3 = Label(infobar, text = "Player 1", borderwidth= 1)
+testlabel = Label(playarea, width=10, height=10, bg = "red", text = "CHECK")
+testlabel.pack()
+test = Card(0,0,"0 0.png")
+
+window.mainloop()
