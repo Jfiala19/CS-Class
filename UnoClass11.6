@@ -31,6 +31,21 @@ class Card: #Card Class
 			return "Yellow"
 		if self.color == 4:
 			return "Wild"
+	def imager(self):
+		if 0<=self.rank<=9:
+			hi = self.rank
+		elif self.rank == 13:
+			hi = 10
+		elif self.rank == 12:
+			hi = 11
+		elif self.rank == 10:
+			hi = 12
+		elif self.rank == 14:
+			hi = 13
+		elif self.rank == 11:
+			hi = 14
+		value = str(hi) + " " +str(self.color)+".png"
+		return value
 	def __str__(self):	
 		return self.colorer() + " " + str(self.id())
 

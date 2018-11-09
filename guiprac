@@ -3,38 +3,59 @@ from tkinter import * # Get everything from Tkinter without having to type Tkint
 
 
 class Card: #Card Class
-	def __init__(self, color, rank, image): #Take in color, rank, and image to make each card
+	def __init__(self, color, rank): #Take in color, rank, and image to make each card
 		self.color = int(color)
 		self.rank = int(rank)
-		imag = PhotoImage(file=image)
-		self.img = Button(playarea, text = "OK",image=imag, command = useCard)
 	def colorer(self):
 		if self.color == 0:
-			return "Blue"
-		if self.color == 1:
 			return "Red"
+		if self.color == 1:
+			return "Yellow"
 		if self.color == 2:
 			return "Green"
 		if self.color == 3:
-			return "Yellow"
+			return "Blue"
 		if self.color == 4:
 			return "Wild"
+	def imager(self):
+		if 0<=self.rank<=9:
+			hi = self.rank
+		elif self.rank == 13:
+			hi = 10
+		elif self.rank == 12:
+			hi = 11
+		elif self.rank == 10:
+			hi = 12
+		elif self.rank == 14:
+			hi = 13
+		elif self.rank == 11:
+			hi = 14
+		value = str(hi) + " " +str(self.color)+".png"
+		return value
+
 	def __str__(self):	
 		return self.colorer() + " " + str(self.id())
 
 def useCard():
 	print("It works")
 
+Card5 = Card(4, 11)
+print(Card5.imager())
 window = Tk()
-playarea = Frame(window, bg = "black")
-playarea.pack()
 infobar = Frame(window)
 infobar.pack(side=TOP)
-label1 = Label(infobar, text = "Player 1", borderwidth= 1)
-label2 = Label(infobar, text = "Player 1", borderwidth= 1)
-label3 = Label(infobar, text = "Player 1", borderwidth= 1)
+label1 = Label(infobar, text = "Player 1", bg = "blue", width = 5, height = 5)
+label2 = Label(infobar, text = "Player 2")
+label3 = Label(infobar, text = "Player 3")
+label1.pack(side=LEFT)
+label2.pack(side=LEFT)
+label3.pack(side=LEFT)
+playarea = Frame(window, bg = "black")
+playarea.pack()
 testlabel = Label(playarea, width=10, height=10, bg = "red", text = "CHECK")
 testlabel.pack()
-test = Card(0,0,"0 0.png")
+card2 = PhotoImage(file=Card5.imager())
+testimg2 = Button(playarea,image=card2, command = useCard)
+testimg2.pack()
 
 window.mainloop()
