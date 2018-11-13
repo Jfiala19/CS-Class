@@ -204,12 +204,23 @@ def nextTurn(): # Runs during a player's turn
 	global turncounter
 	refreshinfobar(turncounter)
 	refreshboard()
+
 	
+# def enterplayer():
+playerentry = Listbox(infobar, selectmode = BROWSE)
+playerentry.pack()
+playerentry.insert(END, "Select Number of Users")
+for item in ["Two", "Three", "Four"]:
+	playerentry.insert(END, item)
 
 
-makeHands()
-makeDiscard()
-nextTurn()
+nameentyr = Entry(playarea)
+
+nameentyr.pack()
+
+# makeHands()
+# makeDiscard()
+# nextTurn()
 
 window.mainloop()
 print("Hello")
