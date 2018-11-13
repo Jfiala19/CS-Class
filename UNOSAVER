@@ -1,54 +1,40 @@
 import random
-from tkinter import * # Get everything from Tkinter without having to type Tkinter. before it every time
+from tkinter import *
 
 class Card: #Card Class
-
 	def __init__(self, color, rank): #Take in color, rank, and image to make each card
-		self.color = int(color)
-		self.rank = int(rank)
-		self.but = Button(playarea,image=self.img, command = self.useCard, cursor = "pirate") 
+		self.color = color
+		self.rank = rank
+		self.img = PhotoImage(file=str(rank)+" "+str(color)+".png")
+		self.but = Button(playarea,image=self.img, command = self.clickCard, cursor = "pirate")
 	def id(self):
 		if 0<= self.rank <= 9: # If the card is a number card
 			return self.rank
-		if self.rank == 10: #a 10 rank card is a draw 2
-			return "Draw 2"
-		if self.rank == 11: #a 11 rank card is a draw 4
-			return "Draw 4"
-		if self.rank == 12: #^^^
-			return "Reverse"
-		if self.rank == 13:#^^^
+		if self.rank == 10: #a 10 rank card is a Skip
 			return "Skip"
+		if self.rank == 11:
+			return "Reverse"
+		if self.rank == 12:
+			return "Draw 2"
+		if self.rank == 13:#^^^
+			return "Wild"
 		if self.rank == 14:#^^^
-			return "Card" #when printing 
+			return "Draw 4" #when printing 
 	def colorer(self):
 		if self.color == 0:
-			return "Blue"
-		if self.color == 1:
 			return "Red"
+		if self.color == 1:
+			return "Yellow"
 		if self.color == 2:
 			return "Green"
 		if self.color == 3:
-			return "Yellow"
+			return "Blue"
 		if self.color == 4:
 			return "Wild"
-	def imager(self):
-		if 0<=self.rank<=9:
-			hi = self.rank
-		elif self.rank == 13:
-			hi = 10
-		elif self.rank == 12:
-			hi = 11
-		elif self.rank == 10:
-			hi = 12
-		elif self.rank == 14:
-			hi = 13
-		elif self.rank == 11:
-			hi = 14
-		value = str(hi) + " " +str(self.color)+".png"
-		return value
 	def __str__(self):	
 		return self.colorer() + " " + str(self.id())
-
+	def clickCard(self):
+		return self.rank + self.color
 
 class Deck:
 
@@ -56,17 +42,16 @@ class Deck:
 		self.cards = [] # Make an empty deck
 		self.present = present # If present == 1, make a full deck. If present == 0, make an empty deck
 		if self.present == 1:
-			colors = [0, 1, 2, 3]
 			for i in range(4): # For each color except "wild color"
-     			#self.cards.append(Card(colors[i], 0)) # Make 1 zero card
+				self.cards.append(Card(i, 0)) # Make 1 zero card
 				for x in range(2): # Make 2 copies of the following cards
 					for z in range(0,9): # Numbered cards from 1 to 9
-						self.cards.append(Card(colors[i], z))
-					self.cards.append(Card(colors[i], 10))
-					self.cards.append(Card(colors[i], 12))
-					self.cards.append(Card(colors[i], 13))
+						self.cards.append(Card(i, z))
+					self.cards.append(Card(i, 10))
+					self.cards.append(Card(i, 11))
+					self.cards.append(Card(i, 12))
 			for q in range(4): # Make 4 wild and draw 4 cards
-				self.cards.append(Card(4, 11))
+				self.cards.append(Card(4, 13))
 				self.cards.append(Card(4, 14))
 			self.shuffle()
 
@@ -85,7 +70,7 @@ class Deck:
 	def addtotop(self, card): # Add card to front of deck
 		self.cards = [card] + self.cards
     
-	def cardid(self, position): # Returns position of the card in the deck
+	def cardid(self, position): # Returns the card in specified position in the deck
 		return self.cards[position]
 
 	def __str__(self):
@@ -93,6 +78,25 @@ class Deck:
 		for i in range(len(self.cards)):
 			hand = hand + str(self.cards[i]) +"\n"
 		return str(hand)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 enternames = ["Jack", "Anan", "Billy", "Bobby"] #this list will be used to call on the players names
 players = ["Jack", "Anan", "Billy", "Bobby"] #this list will be used to call on each player's hand
@@ -121,6 +125,12 @@ def startgame():
 			break
 
 
+def waitforclick():
+	i = 0
+	while i == 0:
+		i = 
+
+
 def turn(player):
 	global drawpile
 	global players
@@ -139,6 +149,8 @@ def turn(player):
 	colorp = discard.cards[0].color
 	rankp = int(discard.cards[0].rank)
 	playedcard = Card(4, 0)
+
+
 
 	while True:
 		print("\n")
@@ -207,9 +219,6 @@ while True:
 	turner = (turner + (value * direction))%(len(players))
 
 print("You Win")
-
-
-
 
 
 
