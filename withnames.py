@@ -119,7 +119,7 @@ endbut = Button(playarea, text = "End Turn", command = endPress)
 
 # LISTS & VARIABLES SETUP
 
-playernames = ["Jack", "Anan", "Billy", "Bobby"] #this list will be used to call on the players names
+playernames = [] #this list will be used to call on the players names
 playerhands = [] #this list will be used to call on each player's hand
 drawpile = Deck(1) # Make a full deck
 discard = Deck(0) # Create an initially empty discard pile
@@ -205,25 +205,52 @@ def nextTurn(): # Runs during a player's turn
 	refreshinfobar(turncounter)
 	refreshboard()
 
+def EnterName(): #if names are confirmed
+	global listofentries, numberofplayers #import these two vars
+	for i in range(numberofplayers): #repeat for as many users there are
+		playernames.append(listofentries[i].get()) #add to the list playernames each entered name
+		listofentries[i].pack_forget() #delete text entry
+	confirmnamesbutton.pack_forget() #delete other aspects
+	Namelabel.pack_forget()
+	print(playernames)
+
+def Confirm(): #after clicking okay to a selected amount of users
+	global listofentries, numberofplayers #make these two vars global
+	numberofplayers = [playerselection.get(i) for i in playerselection.curselection()] #the number of users is equal to the number from the listbox
+	numberofplayers = int(numberofplayers[0]) #convert from string to int
+	listofentries = [] #make a list for the different text entry boxes
+	numberokaybutton.pack_forget() #delete all number of users pieces
+	playerselection.pack_forget()
+	Numberlabel.pack_forget() #ask names of users
+	Namelabel.pack(side=TOP)
+	for i in range(numberofplayers): #create one text entry for each user
+		listofentries.append(0)
+		listofentries[i] = Entry(infobar)
+		listofentries[i].pack()
+	confirmnamesbutton.pack() #enter button
+
 	
-# def enterplayer():
-playerentry = Listbox(infobar, selectmode = BROWSE)
-playerentry.pack()
-playerentry.insert(END, "Select Number of Users")
-for item in ["Two", "Three", "Four"]:
-	playerentry.insert(END, item)
+playerselection = Listbox(infobar, selectmode = BROWSE, width =5, height=4) #this is the listbox for selecting the number of players
+confirmnamesbutton = Button(infobar, text = "Enter", command = EnterName) #this is the button to confirm the names typed in
+Namelabel = Label(infobar, text = 'Enter Player Names')
+Numberlabel = Label(infobar, text = 'Select Number of Users')
+numberokaybutton = Button(infobar, text = "Okay", command = Confirm) #this is the button to confirm number of players selection
+Numberlabel.pack(side=TOP) #ask how many users
+playerselection.pack()#listbox to select ^^^
+choices = ["2", "3", "4"]#choices for amount of users
+for i in range(len(choices)): #add all choices to listbox
+	playerselection.insert(i, choices[i])
+numberokaybutton.pack() #display okay button
 
 
-nameentyr = Entry(playarea)
 
-nameentyr.pack()
+
 
 # makeHands()
 # makeDiscard()
 # nextTurn()
 
 window.mainloop()
-print("Hello")
 
 
 
