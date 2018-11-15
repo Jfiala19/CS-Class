@@ -204,6 +204,7 @@ def nextTurn(): # Runs during a player's turn
 	global turncounter
 	refreshinfobar(turncounter)
 	refreshboard()
+
 	
 
 
