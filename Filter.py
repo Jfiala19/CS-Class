@@ -67,4 +67,4 @@ for x in range(imgx):
 		
 	print("Filter "+str(int(((x/imgx)*100)))+"% complete") #indicate % complete
 
-dogpic.show()
+dogpic.save("Filter68.JPG")
