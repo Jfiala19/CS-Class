@@ -2,7 +2,7 @@ from PIL import Image
 import colorsys
 import math
 
-dogpic = Image.open("lighthouse.jpg")
+dogpic = Image.open("Dog89.JPG")
 
 imgx, imgy = dogpic.size
 
