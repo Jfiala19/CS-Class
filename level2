@@ -1,0 +1,23 @@
+from urllib.request import urlopen
+url = "http://www.pythonchallenge.com/pc/def/ocr.html"
+page = urlopen(url)
+data = page.read()
+#print(data)
+
+list2 = ['!', '@','#','$','%','*','^','(', ')',"[",']','{','}', '+', '-','_','n','/','?','>','<','=']
+list3 = []
+for z in range(len(list2)):
+ 	list3.append(0)
+
+
+list1 = list(str(data))
+
+for x in range(len(list1)):
+	current = list1[x]
+	for i in range(len(list2)):
+		state = list2[i]
+		if state == current:
+			list3[i] = list3[i] + 1
+
+print(list1)
+print(list3)
