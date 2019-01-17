@@ -1,3 +1,5 @@
+#Jack Fiala, 1/15/19, OMH
+#Simulator the predicts distrubitons for 2018 NFL Passer ratings, based off the data from the first three weeks of the season
 
 # https://stackoverflow.com/questions/27779845/how-to-plot-one-single-data-point
 #https://en.wikipedia.org/wiki/Passer_rating#cite_note-4
@@ -7,7 +9,8 @@
 import random
 import matplotlib.pyplot as plt
 
-#data from first three weeks 2018
+#data from first three weeks 2018 (Explained in Presentation)
+#________________________________________________________________________________________
 passing_attempts = 3514
 
 interceptions = 86
@@ -22,72 +25,88 @@ passing_touchdowns = 176
 touchdowns_pecent_completions = (passing_touchdowns/completions) * 100
 
 passing_attempts_per_game = [60,55,55,53,53,51,50,50,49,48,48,46,46,46,45,45,45,44,44,43,42,42,41,41,40,40,40,40,40,39,39,39,38,38,37,37,36,36,36,36,35,35,35,35,35,35,34,34,34,34,34,34,34,34,33,33,33,33,33,33,33,32,32,32,31,31,30,30,30,30,30,29,29,28,28,28,28,28,27,27,27,26,26,26,26,25,24,23,23,23,22,22,21,20,20,19,18,18,16,15,14]
-
-list_of_passer_ratings = []
-
+#__________________________________________________________________________________________________________________________________________________________________________
 
 
+list_of_passer_ratings = [] #this will hold the ratings for each of the simulations
 
 
-for w in range(100000):
+
+for w in range(100000): #run as many times as possible to get more a results
 	
+	#these will be the statics for each "game" (run of simulation). They will reset every time simulation is over
 	total_yards = 0
 	total_interceptions = 0
 	total_completions = 0
 	total_touchdowns = 0
 	attempts = 0
 
+	#from the list of passing attempts, selects a random one
 	x = random.randint(0, len(passing_attempts_per_game)-1)
 	attempts = passing_attempts_per_game[x]
 
+	#repeat for each passing attempt
 	for z in range(attempts):
-		y = random.random()*100
+		y = random.random()*100 #random number between 1 and 100, with some decimal places
 
+		#the first range will encompass being an interception
 		if y <= int_rate:
 			total_interceptions += 1
 
+		#the second range will encompass being a completed pass
 		elif int_rate<y<=(completion_rate+int_rate):
 			total_completions += 1
 
+			#selecting a random yardage to assign to the completed pass, from the list of data
 			q = random.randint(0, len(yards_if_completion)-1)
 			total_yards += yards_if_completion[q]
 
+			#create another number between 1 and 100, if less than touchdown rate, will be a touchdown
 			r = random.random()*100
 			if r<= touchdowns_pecent_completions:
 				total_touchdowns += 1
+				
+		#anything else is just considered an incomplete pass, program moves on
 
-	completion_percentage = total_completions/attempts
-	# print(attempts)
-	# print(total_yards)
-	# print(total_interceptions)
-	# print(total_touchdowns)
-	# print(total_completions)
-	# print(total_yards/total_completions)
-	# print(completion_percentage)
-
-
+	#these are all part of the passer rating formula
 	a = ((total_completions/attempts)-.3)*5
 	b = ((total_yards/attempts)-3)*.25
 	c = ((total_touchdowns/attempts)) *20
 	d = 2.375 - ((total_interceptions/attempts)*25)
 	passer_rating = ((a+b+c+d)/6)*100
-	# print(passer_rating)
 
-	list_of_passer_ratings.append(passer_rating)
 
-#print(list_of_passer_ratings)
-#print(len(list_of_passer_ratings))
-bins = [0 for i in range(-10, 250)]
+	if 0<passer_rating<159: #technically, passer rating exists only b/w 0 and 158.3
+		list_of_passer_ratings.append(int(passer_rating)) #add to list as in integer, so some grouping
+
+
+
+bins = [0 for i in range(0, 160)] #create a list to store the frequency of each passer rating from simulation
+
+
+#goes through each passer rating from the list, and counts the number each one occurs
 for i in range(len(list_of_passer_ratings)):
-	bins[int(list_of_passer_ratings[i])] += 1
+	bins[(list_of_passer_ratings[i])] += 1
 
 
-x_axis = [x for x in range(-10, 250)]
-plt.bar(x_axis, bins)
-plt.plot([88.6], [1700], marker = '^', markersize = 7, color = 'red')
-plt.text(88.6,1700,'    2017 NFL Average', color='red', Fontsize= 7)
+#convert from 100,000 simulations to 512, the quarterback performances in one season
+for i in range(len(bins)):
+	bins[i] = bins[i]/195.3125
+
+
+
+
+x_axis = [x for x in range(0, 160)] #x-axis
+plt.bar(x_axis, bins)#main graph
+
+#marks the 2017 NFL average
+plt.plot([88.6], [9], marker = '^', markersize = 7, color = 'red')
+plt.text(80,9.5,'2017 NFL Average', color='red', Fontsize= 7)
+
+#axis names
 plt.ylabel("Frequency")
 plt.xlabel("Passer Rating")
+
 plt.show()
 
 
