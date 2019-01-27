@@ -1,0 +1,60 @@
+
+
+
+#importing this will allow you to call on tkinter library functions without putting "tkinter." before everything
+from tkinter import* 
+
+
+
+# WINDOW SETUP
+#___________________________________________________________________________________________________________
+
+#This is the "master window", which will hold all other widgets and frames
+master = Tk()
+
+
+#define the starting width and height of the window (in pixels)
+starting_width = 800
+starting_height = 800
+
+
+#define the title of your window
+master_title = "My First Window"
+
+
+#Do you want the starting ratio to be fixed?
+lock_ratio = False
+
+
+#Do you want the starting size to be fixed?
+lock_window = False
+
+
+#Locks size of window, if desired
+if lock_window:
+	master.maxsize(width =starting_width, height = starting_height)
+	master.minsize(width =starting_width, height = starting_height)
+
+
+#Locks ratio of window, if desired
+if lock_ratio:
+	master.aspect(starting_width,starting_height,starting_width,starting_height)
+
+
+#takes the starting values and title and adds them to the window
+master.geometry(str(starting_width)+'x'+str(starting_height))
+master.title(master_title)
+
+# WINDOW SETUP
+#___________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+mainloop()

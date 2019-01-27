@@ -1,0 +1,180 @@
+
+
+
+#This code will guide you through many of the basics of tkinter, while creating a simple login-type window
+
+
+#importing this will allow you to call on tkinter library functions without putting "tkinter." before everything
+from tkinter import* 
+
+#import pillow for a special suprise later
+from PIL import Image
+
+
+# WINDOW SETUP
+#___________________________________________________________________________________________________________
+
+#This is the "master window", which will hold all other widgets and frames
+master = Tk()
+
+
+#define the starting width and height of the window (in pixels)
+starting_width = 350
+starting_height = 250
+
+
+#define the title of your window
+master_title = "Login Window"
+
+
+#Do you want the starting ratio to be fixed?
+lock_ratio = True
+
+
+#Do you want the starting size to be fixed?
+lock_window = True
+
+
+#Locks size of window, if desired
+if lock_window:
+	master.maxsize(width =starting_width, height = starting_height)
+	master.minsize(width =starting_width, height = starting_height)
+
+
+#Locks ratio of window, if desired
+if lock_ratio:
+	master.aspect(starting_width,starting_height,starting_width,starting_height)
+
+
+#takes the starting values and title and adds them to the window
+master.geometry(str(starting_width)+'x'+str(starting_height))
+master.title(master_title)
+
+
+
+# DEFINE FRAMES
+#___________________________________________________________________________________________________________
+
+#Frames are sub-areas with the window, which can help improve organization when packing or placing widgets
+
+#Let's divide the window up into three frames - upper, middle, and bottom
+
+#Note -lock the window size if you want frames to take up entire window
+
+
+#Change to True when ready to continue
+Ready1 = False
+
+if Ready1:
+
+	#set the colors of the frames
+	upperhalf_color = 'blue'
+	middlehalf_color = 'red'
+	bottom_half_color = 'purple'
+
+	#using the starting width and height, this will create three frames that take up a third of the space
+	upperhalf = Frame(master, width =starting_width, height = starting_height/3, bg = upperhalf_color)
+	middlehalf = Frame(master, width =starting_width, height = starting_height/3, bg = middlehalf_color)
+	bottomhalf = Frame(master, width =starting_width, height =starting_height/3, bg = bottom_half_color)
+
+	#packs the lower half at the bottom, the middle in the middle, and the upper one at the top
+	upperhalf.pack(side=TOP)
+	middlehalf.pack()
+	bottomhalf.pack(side=BOTTOM)
+	
+	#prevents the frames from changing sizes
+	upperhalf.pack_propagate(0)
+	middlehalf.pack_propagate(0)
+	bottomhalf.pack_propagate(0)
+
+
+
+# ADD LABELS AND ENTRIES
+#___________________________________________________________________________________________________________
+
+#You will now fill in the upper frame with login related information and entry, and middle frame with password related information and entry
+
+
+#Change to True when ready to continue
+Ready2 = False
+
+if Ready2:
+
+	#Edit the text/colors for the login prompt
+	login_text = "Enter Username: "
+	login_bg_color = upperhalf_color
+	login_text_color = "black"
+	
+
+	#Edit the text/colors for the password prompt
+	password_text = "Enter Password: "
+	password_bg_color = middlehalf_color
+	password_text_color = 'black'
+
+
+	#Creates the login and password labels that will indicate the user what to type in the entries
+	login_label = Label(upperhalf, text = login_text, bg = login_bg_color, fg = login_text_color)
+	password_label = Label(middlehalf, text = password_text, bg = password_bg_color, fg= password_text_color)
+
+	#Packs them to the left of their respective frame
+	login_label.pack(side=LEFT)
+	password_label.pack(side=LEFT)
+
+
+	#These will hold the values of the login and password entries
+	login_string = StringVar()
+	password_string = StringVar()
+
+	#Creates the two text entries
+	login_entry = Entry(upperhalf, textvariable = login_string)
+	password_entry = Entry(middlehalf, textvariable = password_string)
+
+	#Packs the two entries
+	login_entry.pack(side=RIGHT)
+	password_entry.pack(side = RIGHT)
+
+
+# ADD BUTTONS and SUPRISE
+#___________________________________________________________________________________________________________
+
+#Get ready to create the button that will check the username/password combination, and if correct show a suprise. Button will be placed in lower frame
+
+
+#Change to True when ready to continue
+Ready3 = False
+
+if Ready3:
+
+	#Define the correct username/password
+	correct_username = "Billy"
+	correct_password = "Billy123"
+
+	#shhhhh!
+	suprise = Image.open("randompic123.png")
+
+
+	#If button clicked, will check username/password combination
+	def Check():
+		if login_string.get() == correct_username and password_string.get() == correct_password:
+			suprise.show()
+
+
+
+	#Edit the colors/text of button
+	button_text = 'Confirm'
+	button_text_color = 'green'
+
+	#Create a button for checking usernames/password combination. Placed in lowest frame
+	confirm_buttom = Button(bottomhalf, text = button_text, fg = button_text_color, command = Check)
+
+	#Add a spacer (blank label) for aesthetics between top of bottom frame and button
+	upper_spacer =Label(bottomhalf, bg = bottom_half_color, width = starting_width, height = 1)
+	
+	#Pack spacer, then button
+	upper_spacer.pack()
+	confirm_buttom.pack()
+
+
+
+
+mainloop()
