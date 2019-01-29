@@ -41,7 +41,7 @@ if lock_window:
 	master.minsize(width =starting_width, height = starting_height)
 
 
-#Locks ratio of window, if desired
+#Locks height:width ratio of window, if desired
 if lock_ratio:
 	master.aspect(starting_width,starting_height,starting_width,starting_height)
 
@@ -63,7 +63,7 @@ master.title(master_title)
 
 
 #Change to True when ready to continue
-Ready1 = False
+Ready1 = True
 
 if Ready1:
 
@@ -72,7 +72,7 @@ if Ready1:
 	middlehalf_color = 'red'
 	bottom_half_color = 'purple'
 
-	#using the starting width and height, this will create three frames that take up a third of the space
+	#using the starting width and height, this will create three frames that take up a third of the space, stacked vertically
 	upperhalf = Frame(master, width =starting_width, height = starting_height/3, bg = upperhalf_color)
 	middlehalf = Frame(master, width =starting_width, height = starting_height/3, bg = middlehalf_color)
 	bottomhalf = Frame(master, width =starting_width, height =starting_height/3, bg = bottom_half_color)
@@ -82,7 +82,7 @@ if Ready1:
 	middlehalf.pack()
 	bottomhalf.pack(side=BOTTOM)
 	
-	#prevents the frames from changing sizes
+	#prevents the frames from changing sizes (by default they will shrink when widgets are packed into them)
 	upperhalf.pack_propagate(0)
 	middlehalf.pack_propagate(0)
 	bottomhalf.pack_propagate(0)
@@ -96,7 +96,7 @@ if Ready1:
 
 
 #Change to True when ready to continue
-Ready2 = False
+Ready2 = True
 
 if Ready2:
 
@@ -127,7 +127,8 @@ if Ready2:
 
 	#Creates the two text entries
 	login_entry = Entry(upperhalf, textvariable = login_string)
-	password_entry = Entry(middlehalf, textvariable = password_string)
+	password_entry = Entry(middlehalf, show = "*",textvariable = password_string) #the show parameter presents your typing in asterick format, like it would when entering a password in real life
+
 
 	#Packs the two entries
 	login_entry.pack(side=RIGHT)
@@ -141,7 +142,7 @@ if Ready2:
 
 
 #Change to True when ready to continue
-Ready3 = False
+Ready3 = True
 
 if Ready3:
 
