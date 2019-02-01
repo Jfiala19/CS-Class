@@ -1,0 +1,16 @@
+from tkinter import*
+
+window = Tk()
+
+
+def Click():
+	Kin.pack()
+
+
+
+Scott = Button(window, text = "Hello", fg = 'blue', command = Click)
+Scott.pack()
+
+Kin = Label(window, text = "Goodbye", bg = 'red')
+
+mainloop()

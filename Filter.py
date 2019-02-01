@@ -67,4 +67,51 @@ for x in range(imgx):
 		
 	print("Filter "+str(int(((x/imgx)*100)))+"% complete") #indicate % complete
 
+px = dogpic.load()
+
+for y in range(imgy):
+	for x in range(imgx):
+		m = 3
+		mlx, mmx, mly, mmy = (-1*m), m, (-1*m), m
+		if mmx<x<(imgx + mlx) and mmy<y<(imgy+mly):
+			for t in range(mly, mmy+1):
+				for r in range(mlx, mmx+1):
+					a,b,c = px[(x+r), (y+t)]
+					w,e,u, = px[x, y]
+					r,g,b = ((a+w)/2), ((b+e)/2), ((c+u)/2)
+					dogpic.putpixel((x,y), (int(r),int(g),int(b)))
+		else:
+			yfup = y
+			yfdown = 512 - y
+			xfright = x
+			xfleft = 512 - x
+			if (-1* yfup) >= mly:
+				if yfup == 0:
+					mly = 0
+				else:
+					mly = yfup-1
+			if yfdown <= mmy:
+				if yfdown == 0:
+					mmy = 0
+				else:
+					mmy = yfdown -1
+			if (-1* xfright) >= mlx:
+				if xfright == 0:
+					mlx = 0
+				else:
+					mlx = xfright -1
+			if xfleft <= mmx:
+				if xfleft == 0:
+					mmx = 0
+				else:
+					mmx = xfleft -1
+			for t in range(mly, mmy+1):
+				for r in range(mlx, mmx+1):
+					a,b,c = px[(x+r), (y+t)]
+					w,e,u, = px[x, y]
+					r,g,b = ((a+w)/2), ((b+e)/2), ((c+u)/2)
+					dogpic.putpixel((x,y), (int(r),int(g),int(b)))
+
+	print("Smoothing " +str(int(((y/512)*100)))+"% complete")
+
 dogpic.save("Filter68.JPG")

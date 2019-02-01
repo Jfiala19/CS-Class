@@ -1,7 +1,14 @@
-
+#Jack Fiala and Anan Aramthanapon, 1/31/19, OMH
 
 
 #This code will guide you through many of the basics of tkinter, while creating a simple login-type window
+
+
+#Sources:
+# http://effbot.org/tkinterbook/
+# https://stackoverflow.com/questions/27198287/tkinter-create-multiple-buttons-with-different-command-function
+# https://stackoverflow.com/questions/1529847/how-to-change-the-foreground-or-background-colour-of-a-tkinter-button-on-mac-os
+
 
 
 #importing this will allow you to call on tkinter library functions without putting "tkinter." before everything
@@ -45,7 +52,7 @@ if lock_window:
 if lock_ratio:
 	master.aspect(starting_width,starting_height,starting_width,starting_height)
 
-
+  
 #takes the starting values and title and adds them to the window
 master.geometry(str(starting_width)+'x'+str(starting_height))
 master.title(master_title)
@@ -63,7 +70,7 @@ master.title(master_title)
 
 
 #Change to True when ready to continue
-Ready1 = True
+Ready1 = False
 
 if Ready1:
 
@@ -96,7 +103,7 @@ if Ready1:
 
 
 #Change to True when ready to continue
-Ready2 = True
+Ready2 = False
 
 if Ready2:
 
@@ -142,7 +149,7 @@ if Ready2:
 
 
 #Change to True when ready to continue
-Ready3 = True
+Ready3 = False
 
 if Ready3:
 
