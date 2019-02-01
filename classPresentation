@@ -2,15 +2,15 @@ from tkinter import*
 
 window = Tk()
 
-
 def Click():
-	Kin.pack()
+	Kyn.pack()
+
+scott = Button(window, text = 'Scott Is Cool', fg = 'Blue', command = Click)
 
 
+scott.pack()
 
-Scott = Button(window, text = "Hello", fg = 'blue', command = Click)
-Scott.pack()
+Kyn = Label(window, text= 'Not', bg= 'GREEN', fg= 'Purple')
 
-Kin = Label(window, text = "Goodbye", bg = 'red')
 
 mainloop()
